@@ -1,248 +1,58 @@
-#!/bin/sh
-
-# ============================================
-# Atomic Search - Optimized Startup Script
-# ============================================
+#!/bin/bash
+# Atomic Search - Simple Startup Script
+# Based on SearXNG | Rebranded by UCXP Project
 
 set -e
 
-# Performance: Pre-compile Python files
-find /usr/local/searxng/searx -name "*.py" -exec python -m compileall {} + 2>/dev/null || true
+echo "🔮 Starting Atomic Search..."
 
-# enable built in image proxy
-if [ ! -z "${IMAGE_PROXY}" ]; then
-    sed -i -e "/image_proxy:/s/false/true/g" \
-    searx/settings.yml;
+# Change to app directory
+cd /app
+
+# Set environment
+export PYTHONUNBUFFERED=1
+export SEARXNG_DATA_DIR="${SEARXNG_DATA_DIR:-/app/searx/data}"
+export SEARXNG_SETTINGS="${SEARXNG_SETTINGS:-/app/searx/settings.yml}"
+
+# Create data directory if needed
+mkdir -p "$SEARXNG_DATA_DIR"
+
+# Add healthcheck endpoint if not present
+if ! grep -q "def healthz" searx/webapp.py 2>/dev/null; then
+    # Add after imports
+    sed -i "/from flask import/a\\
+\\
+@app.route('/healthz', methods=['GET'])\\
+def healthz():\\
+    return 'OK', 200" searx/webapp.py 2>/dev/null || true
 fi
 
-# proxy config based on PROXY env var
-if [ ! -z "${PROXY}" ]; then
-    sed -i -e "s/  #  proxies:/  proxies:/g" \
-    -e "s+  #    all://:+    all://:+g" \
-    searx/settings.yml;
-    echo "${PROXY}" | tr ',' '\n' | while read -r i; do
-        sed -i -e "s+    all://:+    all://:\n      - ${i}+g" \
-        searx/settings.yml;
-    done
+# Set instance name
+if [ -n "$NAME" ]; then
+    sed -i "s/instance_name:.*/instance_name: $NAME/" searx/settings.yml 2>/dev/null || true
 fi
 
-# set redis if REDIS_URL contains URL
-if [ ! -z "${REDIS_URL}" ]; then
-    sed -i -e "s+  url: false+  url: ${REDIS_URL}+g" \
-    searx/settings.yml;
+# Enable image proxy
+if [ "$IMAGE_PROXY" = "true" ]; then
+    sed -i 's/^image_proxy:.*/image_proxy: true/' searx/settings.yml 2>/dev/null || true
 fi
 
-# enable limiter if LIMITER exists
-if [ ! -z "${LIMITER}" ]; then
-    sed -i -e "s+limiter: false+limiter: true+g" \
-    searx/settings.yml;
+# Set secret key if not set
+if [ -z "$SECRET_KEY" ]; then
+    export SECRET_KEY="$(head -c 32 /dev/urandom | base64)"
 fi
 
-# set base_url and instance_name if BASE_URL is not empty
-if [ ! -z "${BASE_URL}" ]; then
-    sed -i -e "s+base_url: false+base_url: \"${BASE_URL}\"+g" \
-    searx/settings.yml;
-fi
+# Set listen address
+HOST="${GRANIAN_HOST:-0.0.0.0}"
+PORT="${GRANIAN_PORT:-8080}"
 
-# set instance name
-if [ ! -z "${NAME}" ]; then
-    sed -i -e "/instance_name:/s/SearXNG/${NAME}/g" \
-    searx/settings.yml;
-else
-    sed -i -e "/instance_name:/s/SearXNG/Atomic Search/g" \
-    searx/settings.yml;
-fi
+echo "📍 Listening on $HOST:$PORT"
 
-# set privacy policy url
-if [ ! -z "${PRIVACYPOLICY}" ]; then
-    sed -i -e "s+privacypolicy_url: false+privacypolicy_url: ${PRIVACYPOLICY}+g" \
-    searx/settings.yml;
-else # set to 'privacy'
-    sed -i -e "s+privacypolicy_url: false+privacypolicy_url: privacy+g" \
-    searx/settings.yml;
-fi
-
-# set contact url
-if [ ! -z "${CONTACT}" ]; then
-    sed -i -e "s+contact_url: false+contact_url: ${CONTACT}+g" \
-    searx/settings.yml;
-fi
-
-# set default search lang
-if [ ! -z "${SEARCH_DEFAULT_LANG}" ]; then
-    sed -i -e "s+default_lang: \"auto\"+default_lang: \"${SEARCH_DEFAULT_LANG}\"+g" \
-    searx/settings.yml;
-fi
-
-# set issue url
-if [ ! -z "${ISSUE_URL}" ]; then
-    sed -i -e "s+issue_url: https://github.com/searxng/searxng/issues+issue_url: ${ISSUE_URL}+g" \
-    -e "s+new_issue_url: https://github.com/searxng/searxng/issues/new+new_issue_url: ${ISSUE_URL}/new+g" \
-    searx/settings.yml;
-fi
-
-# set git url
-if [ ! -z "${GIT_URL}" ]; then
-    sed -i -e "s+^GIT_URL = .*$+GIT_URL = \"${GIT_URL}\"+g" \
-    searx/version_frozen.py; \
-fi
-
-# set git branch
-if [ ! -z "${GIT_BRANCH}" ]; then
-    sed -i -e "/GIT_BRANCH/s/\".*\"/\"${GIT_BRANCH}\"/g" \
-    searx/version_frozen.py; \
-fi
-
-# set engine suspension timeout if a SearxEngineAccessDenied exception occours
-if [ ! -z "${SEARCH_ENGINE_ACCESS_DENIED}" ]; then
-    sed -i -e "/    SearxEngineAccessDenied/s/180/${SEARCH_ENGINE_ACCESS_DENIED}/g" \
-    searx/settings.yml;
-else # set to 60 seconds
-    sed -i -e "/    SearxEngineAccessDenied/s/180/60/g" \
-    searx/settings.yml;
-fi
-
-# set engine suspension timeout if a SearxEngineCaptcha exception occours
-if [ ! -z "${SEARCH_ENGINE_CAPTCHA}" ]; then
-    sed -i -e "/    SearxEngineCaptcha/s/3600/${SEARCH_ENGINE_CAPTCHA}/g" \
-    searx/settings.yml;
-else # set to 60 seconds
-    sed -i -e "/    SearxEngineCaptcha/s/3600/60/g" \
-    searx/settings.yml;
-fi
-
-# enable public_instance mode
-if [ ! -z "${PUBLIC_INSTANCE}" ]; then
-    sed -i -e "/public_instance:/s/false/true/g" \
-    searx/settings.yml;
-fi
-
-# auto gen random key for every unique container if SECRET_KEY not set
-if [ -z "${SECRET_KEY}" ]; then
-    sed -i -e "s/ultrasecretkey/$(head -c 24 /dev/urandom | base64 | tr -dc 'a-zA-Z0-9')/g" \
-    searx/settings.yml;
-else # set SECRET_KEY
-    sed -i -e "s/ultrasecretkey/${SECRET_KEY}/g" \
-    searx/settings.yml;
-fi
-
-# set OPENMETRICS if exists
-if [ ! -z "${OPENMETRICS}" ]; then
-    sed -i -e "s+open_metrics: ''+open_metrics: ${OPENMETRICS}+g" \
-    searx/settings.yml;
-fi
-
-# set GOOGLE_DEFAULT if exists
-if [ ! -z "${GOOGLE_DEFAULT}" ]; then
-    sed -i -e "/name: google/s/$/\n    disabled: false/g" \
-    searx/settings.yml;
-else # set to disabled
-    sed -i -e "/name: google/s/$/\n    disabled: true/g" \
-    searx/settings.yml;
-fi
-
-# set BING_DEFAULT if exists
-if [ ! -z "${BING_DEFAULT}" ]; then
-    sed -i \
-    -e "/shortcut: bi\$/{n;s/.*/    disabled: false/}" \
-    -e "/shortcut: bii\$/{n;s/.*/    disabled: true/}" \
-    -e "/shortcut: bin\$/{n;s/.*/    disabled: true/}" \
-    -e "/shortcut: biv\$/{n;s/.*/    disabled: true/}" \
-    searx/settings.yml;
-else # set to disabled
-    sed -i \
-    -e "/shortcut: bi\$/{n;s/.*/    disabled: true/}" \
-    -e "/shortcut: bii\$/{n;s/.*/    disabled: true/}" \
-    -e "/shortcut: bin\$/{n;s/.*/    disabled: true/}" \
-    -e "/shortcut: biv\$/{n;s/.*/    disabled: true/}" \
-    searx/settings.yml;
-fi
-
-# set BRAVE_DEFAULT if exists
-if [ ! -z "${BRAVE_DEFAULT}" ]; then
-    sed -i -e "/name: brave/s/$/\n    disabled: false/g" \
-    searx/settings.yml;
-else # set to disabled
-    sed -i -e "/name: brave/s/$/\n    disabled: true/g" \
-    searx/settings.yml;
-fi
-
-# set DUCKDUCKGO_DEFAULT if exists
-if [ ! -z "${DUCKDUCKGO_DEFAULT}" ]; then
-    sed -i -e "/name: duckduckgo/s/$/\n    disabled: false/g" \
-    searx/settings.yml;
-else # set to disabled
-    sed -i -e "/name: duckduckgo/s/$/\n    disabled: true/g" \
-    searx/settings.yml;
-fi
-
-# set WIKIPEDIA_DEFAULT if exists
-if [ ! -z "${WIKIPEDIA_DEFAULT}" ]; then
-    sed -i -e "/name: wikipedia/s/$/\n    disabled: false/g" \
-    searx/settings.yml;
-else # set to disabled
-    sed -i -e "/name: wikipedia/s/$/\n    disabled: true/g" \
-    searx/settings.yml;
-fi
-
-# set WIKIDATA_DEFAULT if exists
-if [ ! -z "${WIKIDATA_DEFAULT}" ]; then
-    sed -i -e "/name: wikidata/s/$/\n    disabled: false/g" \
-    searx/settings.yml;
-else # set to disabled
-    sed -i -e "/name: wikidata/s/$/\n    disabled: true/g" \
-    searx/settings.yml;
-fi
-
-# set DDG_DEFINITIONS_DEFAULT if exists
-if [ ! -z "${DDG_DEFINITIONS_DEFAULT}" ]; then
-    sed -i -e "/name: ddg definitions/s/$/\n    disabled: false/g" \
-    searx/settings.yml;
-else # set to disabled
-    sed -i -e "/name: ddg definitions/s/$/\n    disabled: true/g" \
-    searx/settings.yml;
-fi
-
-# set Marginalia API key
-if [ ! -z "${MARGINALIA_API}" ]; then
-    sed -i -e "/- name: marginalia/,/inactive:/s/# api_key: .*/api_key: '${MARGINALIA_API}'/" \
-    -e "/- name: marginalia/,/inactive:/s/inactive: true/inactive: false/" \
-    searx/settings.yml;
-fi
-
-# set footer message
-if [ ! -z "${FOOTER_MESSAGE}" ]; then
-    sed -i "/<footer>/,/{{/ { /${FOOTER_MESSAGE}/! s|<p>[^{{]*|<p>${FOOTER_MESSAGE}| }" \
-    searx/templates/simple/base.html
-fi
-
-# enable donation page (footer link to /donate)
-if [ "${DONATE}" = "true" ]; then
-    sed -i -e "s+donation_url: false+donation_url: donate+g" searx/settings.yml;
-fi
-
-# populate donation page URL placeholders
-if [ ! -z "${DONATION_URL}" ]; then
-    donation_display=$(echo "${DONATION_URL}" | sed 's|^https\?://||')
-    sed -i -e "s|__DONATION_URL_DISPLAY__|${donation_display}|g" -e "s|__DONATION_URL__|${DONATION_URL}|g" searx/templates/simple/donation.html;
-fi
-if [ ! -z "${MONERO_ADDRESS}" ]; then
-    case "${MONERO_ADDRESS}" in monero:*) monero_uri="${MONERO_ADDRESS}" ;; *) monero_uri="monero:${MONERO_ADDRESS}" ;; esac
-    case "${monero_uri}" in *\?*) ;; *) monero_uri="${monero_uri}?tx_description=Atomic+Search+Donation" ;; esac
-    monero_display=$(echo "${MONERO_ADDRESS}" | sed 's|^monero:||')
-    sed -i -e "s|__MONERO_URI__|${monero_uri}|g" -e "s|__MONERO_ADDRESS__|${monero_display}|g" searx/templates/simple/donation.html;
-fi
-
-# Healthcheck endpoint - respond to /healthz
-# (Already added in Dockerfile, this is fallback)
-
-echo "🚀 Starting Atomic Search..."
-echo "📍 Listening on: ${GRANIAN_HOST:-0.0.0.0}:${GRANIAN_PORT:-8080}"
-
-# Run granian with explicit parameters
-exec /usr/local/searxng/venv/bin/granian \
-    --host "${GRANIAN_HOST:-0.0.0.0}" \
-    --port "${GRANIAN_PORT:-8080}" \
+# Run granian
+exec /opt/venv/bin/granian \
+    --host "$HOST" \
+    --port "$PORT" \
     --workers 2 \
     --threads 4 \
+    --name "atomic-search" \
     searx.privau_wsgi:app

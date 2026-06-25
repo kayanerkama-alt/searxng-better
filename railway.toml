@@ -1,5 +1,5 @@
 [railway]
-  variableGroup = "atomic-search"
+  plugin = "docker"
 
 [atomic-search]
   dockerfile = "Dockerfile"
@@ -8,10 +8,6 @@
   NAME = "Atomic Search"
   GRANIAN_HOST = "0.0.0.0"
   GRANIAN_PORT = "8080"
-  SIMPLE_STYLE = "macchiato"
-  SAFE_SEARCH = "1"
-  AUTOCOMPLETE = "google"
-  HTTP_PROTOCOL_VERSION = "1.1"
   IMAGE_PROXY = "true"
 
 [atomic-search.health]
