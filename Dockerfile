@@ -32,26 +32,25 @@ COPY --chown=root:root ./out/themes/simple/* /app/searx/static/themes/simple/
 # Copy Atomic Search custom features
 COPY --chown=root:root ./src/search/*.py /app/searx/search/
 
-# Complete branding replacement
+# Complete branding replacement  
 RUN sed -i 's/"SearXNG"/"Atomic Search"/g' /app/searx/settings.yml && \
-    sed -i 's/SearXNG/Atomic Search/g' /app/searx/settings.yml && \
-    sed -i 's/port: 8888/port: 8000/g' /app/searx/settings.yml
+    sed -i 's/SearXNG/Atomic Search/g' /app/searx/settings.yml
 
-# Set environment
+# Set environment - use PORT env var if set (Railway), else default 8888
 ENV PYTHONUNBUFFERED=1
 ENV SEARXNG_DATA_DIR=/app/searxng-data
 ENV SEARXNG_SETTINGS=/app/searx/settings.yml
-ENV SEARXNG_PORT=8000
 ENV SEARXNG_BIND_ADDRESS=0.0.0.0
+ENV SEARXNG_PORT=${PORT:-8888}
 
 # Create data directory
 RUN mkdir -p /app/searxng-data
 
-EXPOSE 8000
+EXPOSE 8888
 
 # Healthcheck
 HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
-    CMD curl -sf http://localhost:8000/ || exit 1
+    CMD curl -sf http://localhost:${PORT:-8888}/ || exit 1
 
-# Run on port 8000
-CMD ["python", "-m", "searx.webapp", "--port", "8000", "--bind", "0.0.0.0"]
+# Run on port from env (Railway sets PORT=8080) or 8888
+CMD ["python", "-m", "searx.webapp", "--port", "${PORT:-8888}", "--bind", "0.0.0.0"]
