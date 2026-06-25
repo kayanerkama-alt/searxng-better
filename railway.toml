@@ -7,3 +7,6 @@
 [atomic-search.healthcheck]
   path = "/"
   port = 8080
+  intervalSeconds = 30
+  timeoutSeconds = 10
+  startPeriodSeconds = 120

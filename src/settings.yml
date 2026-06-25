@@ -1,0 +1,77 @@
+# Atomic Search Settings
+# Rebranded by UCXP Project
+
+general:
+  debug: false
+  instance_name: "Atomic Search"
+  privacypolicy_url: false
+  donation_url: false
+  contact_url: false
+  enable_metrics: true
+  open_metrics: ''
+
+brand:
+  docs_url: https://docs.searxng.org/
+  public_instances: https://searx.space
+  wiki_url: https://github.com/searxng/searxng/wiki
+  issue_url: https://github.com/searxng/searxng/issues
+  new_issue_url: https://github.com/searxng/searxng/issues/new
+
+search:
+  safe_search: 0
+  autocomplete: ""
+  autocomplete_min: 0
+  favicon_resolver: ""
+  default_lang: "en"
+  max_request_timeout: 5.0
+  format: "html"
+  formats:
+    - html
+    - json
+  query_in_title: true
+
+server:
+  secret_key: "change-this-secret-key-in-production"
+  bind_address: "0.0.0.0"
+  port: 8080
+  limiter: false
+  public_instance: true
+  image_proxy: true
+  http_protocol_version: "1.1"
+
+use_default_settings: false
+
+engines:
+  - name: google
+    shortcut: g
+    disabled: false
+  - name: bing
+    shortcut: b
+    disabled: false
+  - name: duckduckgo
+    shortcut: ddg
+    disabled: false
+  - name: wikipedia
+    shortcut: w
+    disabled: false
+  - name: github
+    shortcut: gh
+    disabled: false
+  - name: youtube
+    shortcut: yt
+    disabled: false
+  - name: reddit
+    shortcut: r
+    disabled: false
+  - name: stackoverflow
+    shortcut: so
+    disabled: false
+  - name: google images
+    shortcut: gi
+    disabled: false
+  - name: google news
+    shortcut: gn
+    disabled: false
+  - name: wikipedia
+    shortcut: wiki
+    disabled: false

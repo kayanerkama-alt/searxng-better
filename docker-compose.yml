@@ -1,23 +1,22 @@
+# Atomic Search - Docker Compose
 version: '3.8'
+
 services:
   atomic-search:
-    build: .
-    container_name: atomic-search
-    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - "8080:8080"
     environment:
-      - NAME=Atomic Search
-      - IMAGE_PROXY=true
-      - GRANIAN_HOST=0.0.0.0
-      - GRANIAN_PORT=8080
+      - SEARXNG_SECRET_KEY=dev-secret-key-change-in-production
+      - SEARXNG_DATA_DIR=/app/searxng/data
+    volumes:
+      - ./searxng-data:/app/searxng/data
+    restart: unless-stopped
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/healthz"]
+      test: ["CMD", "curl", "-f", "http://localhost:8080/"]
       interval: 30s
       timeout: 10s
-      retries: 5
-    volumes:
-      - atomic-data:/app/searx/data
-
-volumes:
-  atomic-data:
+      retries: 3
+      start_period: 120s
