@@ -1,0 +1,24 @@
+name: Deploy to Railway
+
+on:
+  push:
+    branches: [main, feature/atomic-search-rebrand]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Build and Push Docker image
+        run: |
+          docker build -t atomic-search:${{ github.sha }} .
+          docker tag atomic-search:${{ github.sha }} registry.docker.io/atomic-search:${{ github.sha }}
+      
+      - name: Deploy to Railway
+        run: |
+          curl -X POST "https://railway.app/api/v0/projects/${{ vars.RAILWAY_PROJECT_ID }}/deployments" \
+            -H "Authorization: Bearer ${{ secrets.RAILWAY_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d '{"environmentId": "${{ vars.RAILWAY_ENV_ID }}", "serviceId": "${{ vars.RAILWAY_SERVICE_ID }}"}'

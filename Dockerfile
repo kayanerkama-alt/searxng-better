@@ -23,35 +23,19 @@ RUN git clone --depth 1 https://github.com/searxng/searxng.git . && \
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy custom settings with branding
-COPY --chown=root:root ./src/settings.yml /app/searx/settings.yml
+# Copy source files (templates, static, settings)
+COPY --chown=root:root ./src/ /app/searx/
 
-# Copy privacy features
+# Copy themes from out folder to static/themes
+COPY --chown=root:root ./out/themes/simple/* /app/searx/static/themes/simple/
+
+# Copy additional features
 COPY --chown=root:root ./src/search/privacy_features.py /app/searx/search/privacy_features.py
 COPY --chown=root:root ./src/search/ranking_control.py /app/searx/search/ranking_control.py
 
-# Copy themes
-COPY --chown=root:root ./out/themes/ /app/searx/static/themes/simple/
-
-# Patch branding - replace ALL SearXNG with Atomic Search
+# Patch branding - replace ALL SearXNG with Atomic Search in settings
 RUN sed -i 's/"SearXNG"/"Atomic Search"/g' /app/searx/settings.yml && \
-    sed -i 's/SearXNG/Atomic Search/g' /app/searx/infopage/*/about.md && \
-    sed -i 's/SearXNG/Atomic Search/g' /app/searx/templates/simple/info/en/about.md && \
-    sed -i 's/SearXNG/Atomic Search/g' /app/searx/templates/simple/base.html && \
-    sed -i 's/SearXNG/Atomic Search/g' /app/searx/templates/simple/info/about.html && \
-    sed -i 's/SearXNG/Atomic Search/g' /app/searx/templates/simple/manifest.json && \
-    sed -i 's/SearXNG/Atomic Search/g' /app/searx/templates/simple/opensearch.xml && \
-    sed -i 's/About SearXNG/About Atomic Search/g' /app/searx/infopage/*/about.md && \
-    sed -i 's/searxng-version/atomic-search-version/g' /app/searx/templates/simple/base.html && \
-    sed -i 's/searxng_version/atomic_search_version/g' /app/searx/webapp.py 2>/dev/null || true
-
-# Add healthcheck endpoint
-RUN sed -i "/from flask import/i\\
-\\
-@app.route('/healthz')\\
-def healthz():\\
-    return 'OK', 200\\
-" /app/searx/webapp.py
+    sed -i 's/instance_name: "Atomic Search"/instance_name: "Atomic Search"/g' /app/searx/settings.yml
 
 # Set environment
 ENV PYTHONUNBUFFERED=1
@@ -65,7 +49,6 @@ EXPOSE 8080
 
 # Healthcheck
 HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
-    CMD curl -sf http://localhost:8080/healthz || curl -sf http://localhost:8080/ || exit 1
+    CMD curl -sf http://localhost:8080/ || exit 1
 
 CMD ["python", "-m", "searx.webapp"]
-FORCE_REBUILD_1782380613
