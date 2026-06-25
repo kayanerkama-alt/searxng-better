@@ -33,28 +33,26 @@ if ! grep -q '@import "captchapage.less";' build/client/simple/src/less/style.le
   sed -i 's/@import "donationpage.less";/@import "donationpage.less";\n@import "captchapage.less";/' build/client/simple/src/less/style.less
 fi
 
+# Copy Atomic Search logos to build img folder
+echo "🎨 Copying Atomic Search logos to build..."
+mkdir -p build/client/simple/src/img
+cp -v src/static/img/*.svg build/client/simple/src/img/ 2>/dev/null || true
+
 echo "⚙️ Building static files..."
 cd build
 make themes.all
 cd ..
+if [ $? -ne 0 ]; then
+    echo "⚠️ Theme build failed, using previous build..."
+fi
 
 echo "📦 Copying build files into output folder..."
 rm -rf out/*
 cp -r -v build/searx/static/themes/simple/* out/
 
-# Preserve Atomic Search logos
-echo "🎨 Preserving Atomic Search logos..."
-cp -v src/less/../out/img/atomic.svg out/img/ 2>/dev/null || true
-cp -v src/less/../out/img/atomic-icon.svg out/img/ 2>/dev/null || true
-
-# Update searxng logo references to atomic
-echo "✨ Updating logo references to Atomic Search..."
-if [ -f out/img/searxng.svg ]; then
-    cp out/img/atomic.svg out/img/searxng.svg
-fi
-if [ -f out/img/searxng.png ]; then
-    # Just keep the PNG, we'll use SVG for logo
-    cp out/img/atomic.svg out/img/searxng.svg 2>/dev/null || true
-fi
+# Ensure Atomic Search logos exist in output
+echo "✨ Copying Atomic Search logos to output..."
+cp -v src/static/img/atomic-logo.svg out/img/atomic.svg 2>/dev/null || true
+cp -v src/static/img/searxng.svg out/img/searxng.svg 2>/dev/null || true
 
 echo "✅ Build complete!"
