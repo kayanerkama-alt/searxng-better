@@ -1,0 +1,27 @@
+/* Pastel Dream Theme for Atomic Search */
+/* Soft and calming pastel colors */
+:root {
+  --color-base-font: #5D5C61;
+  --color-base-background: #FDF6F0;
+  --color-base-font-hover: #9B59B6;
+  --color-btn-background: linear-gradient(135deg, #FFB6C1, #E6E6FA);
+  --color-btn-font: #fff;
+  --color-search-background: #fff;
+  --color-search-border: #E6E6FA;
+  --color-search-shadow: 0 4px 20px rgba(230, 230, 250, 0.8);
+  --color-result-background: #fff;
+  --color-result-border: #FFB6C1;
+  --color-result-title-font: #8E44AD;
+  --color-result-url-font: #9B59B6;
+  --color-result-description-font: #5D5C61;
+  --color-highlight-background: rgba(255, 182, 193, 0.3);
+  --color-autocomplete-background: #fff;
+  --color-autocomplete-border: #E6E6FA;
+  --color-autocomplete-font: #5D5C61;
+  --color-autocomplete-hover-background: #E6E6FA;
+  --color-autocomplete-hover-font: #fff;
+  --color-result-engines-font: #B19CD9;
+  --color-footer-font: #5D5C61;
+  --color-footer-background: linear-gradient(135deg, #E6E6FA, #FFB6C1);
+  --color-category-icon: #E91E63;
+}

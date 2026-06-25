@@ -1,0 +1,13 @@
+/* Strawberry Lemonade - Pink refreshment */
+:root {
+  --color-base-font: #4a4a4a;
+  --color-base-background: linear-gradient(135deg, #ffeaa7, #fab1a0);
+  --color-btn-background: linear-gradient(135deg, #fd79a8, #e84393);
+  --color-btn-font: #fff;
+  --color-search-background: #fff;
+  --color-search-border: #fd79a8;
+  --color-result-background: rgba(255, 255, 255, 0.95);
+  --color-result-border: #fab1a0;
+  --color-result-title-font: #d63384;
+  --color-result-url-font: #e84393;
+}

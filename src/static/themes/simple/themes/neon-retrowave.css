@@ -1,0 +1,13 @@
+/* 80s synthwave */
+:root {
+  --color-base-font: #ff66ff;
+  --color-base-background: #1a0a2e;
+  --color-btn-background: linear-gradient(135deg, #2d1b4e, #ff0080);
+  --color-btn-font: #ffffff;
+  --color-search-background: #ff6600;
+  --color-search-border: #2d1b4e;
+  --color-result-background: #ff6600;
+  --color-result-border: #4a2c7a;
+  --color-result-title-font: #2d1b4e;
+  --color-result-url-font: #00ffff;
+}

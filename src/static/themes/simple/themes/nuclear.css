@@ -1,0 +1,13 @@
+/* Nuclear - Nuclear power theme */
+:root {
+  --color-base-font: #f0f0f0;
+  --color-base-background: #1a1a2e;
+  --color-btn-background: linear-gradient(135deg, #ff6b35, #f7931e);
+  --color-btn-font: #ffffff;
+  --color-search-background: #16213e;
+  --color-search-border: #ff6b35;
+  --color-result-background: #16213e;
+  --color-result-border: #0f3460;
+  --color-result-title-font: #ff6b35;
+  --color-result-url-font: #f7931e;
+}

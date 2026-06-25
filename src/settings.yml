@@ -18,10 +18,10 @@ general:
   open_metrics: ''
 
 brand:
-  docs_url: https://docs.searxng.org/
-  public_instances: https://searx.space
-  wiki_url: https://github.com/searxng/searxng/wiki
-  issue_url: https://github.com/searxng/searxng/issues
+  docs_url: https://docs.atomic-search.io/
+  public_instances: https://atomic-search.space
+  wiki_url: https://github.com/kayanerkama-alt/searxng-better/wiki
+  issue_url: https://github.com/kayanerkama-alt/searxng-better/issues
   # custom:
   #   # Custom entries in the footer: [title]: [link]
   #   links:
@@ -102,7 +102,7 @@ server:
   # If your instance owns a /etc/searxng/settings.yml file, then set the following
   # values there.
 
-  secret_key: "atomic-search-secret-key-please-change"  # Is overwritten by ${SEARXNG_SECRET}
+  secret_key: "ultrasecretkey"  # Is overwritten by ${SEARXNG_SECRET}
   # Proxy image results through SearXNG. Is overwritten by ${SEARXNG_IMAGE_PROXY}
   image_proxy: false
   # 1.0 and 1.1 are supported

@@ -1,0 +1,27 @@
+/* Nord Frost Theme for Atomic Search */
+/* Based on Nord Color Palette - Frost */
+:root {
+  --color-base-font: #4C566A;
+  --color-base-background: #ECEFF4;
+  --color-base-font-hover: #5E81AC;
+  --color-btn-background: #5E81AC;
+  --color-btn-font: #ECEFF4;
+  --color-search-background: #E5E9F0;
+  --color-search-border: #88C0D0;
+  --color-search-shadow: rgba(94, 129, 172, 0.2);
+  --color-result-background: #E5E9F0;
+  --color-result-border: #D8DEE9;
+  --color-result-title-font: #5E81AC;
+  --color-result-url-font: #88C0D0;
+  --color-result-description-font: #4C566A;
+  --color-highlight-background: rgba(136, 192, 208, 0.2);
+  --color-autocomplete-background: #E5E9F0;
+  --color-autocomplete-border: #D8DEE9;
+  --color-autocomplete-font: #4C566A;
+  --color-autocomplete-hover-background: #5E81AC;
+  --color-autocomplete-hover-font: #ECEFF4;
+  --color-result-engines-font: #81A1C1;
+  --color-footer-font: #4C566A;
+  --color-footer-background: #2E3440;
+  --color-category-icon: #88C0D0;
+}

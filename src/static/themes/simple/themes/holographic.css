@@ -1,0 +1,14 @@
+/* Holographic Theme for Atomic Search */
+:root {
+  --color-base-font: #e0e0e0;
+  --color-base-background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+  --color-btn-background: linear-gradient(135deg, #667eea, #764ba2);
+  --color-btn-font: #fff;
+  --color-search-background: rgba(255, 255, 255, 0.1);
+  --color-search-border: #667eea;
+  --color-result-background: rgba(255, 255, 255, 0.05);
+  --color-result-border: rgba(255, 255, 255, 0.1);
+  --color-result-title-font: #a78bfa;
+  --color-result-url-font: #60a5fa;
+  --color-highlight-background: rgba(167, 139, 250, 0.3);
+}

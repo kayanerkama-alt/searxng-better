@@ -1,0 +1,13 @@
+/* Void - Deep space */
+:root {
+  --color-base-font: #888888;
+  --color-base-background: #000000;
+  --color-btn-background: linear-gradient(135deg, #111111, #444444);
+  --color-btn-font: #ffffff;
+  --color-search-background: #0a0a0a;
+  --color-search-border: #111111;
+  --color-result-background: #0a0a0a;
+  --color-result-border: #222222;
+  --color-result-title-font: #111111;
+  --color-result-url-font: #aaaaaa;
+}

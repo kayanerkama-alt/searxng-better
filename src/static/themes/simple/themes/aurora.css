@@ -1,0 +1,27 @@
+/* Aurora Theme for Atomic Search */
+/* Northern Lights inspired */
+:root {
+  --color-base-font: #C9D1D9;
+  --color-base-background: #0D1117;
+  --color-base-font-hover: #3FB950;
+  --color-btn-background: linear-gradient(135deg, #3FB950, #2F81F7);
+  --color-btn-font: #ffffff;
+  --color-search-background: #161B22;
+  --color-search-border: #3FB950;
+  --color-search-shadow: 0 0 20px rgba(63, 185, 80, 0.3);
+  --color-result-background: #161B22;
+  --color-result-border: #30363D;
+  --color-result-title-font: #2F81F7;
+  --color-result-url-font: #3FB950;
+  --color-result-description-font: #8B949E;
+  --color-highlight-background: rgba(63, 185, 80, 0.2);
+  --color-autocomplete-background: #161B22;
+  --color-autocomplete-border: #30363D;
+  --color-autocomplete-font: #C9D1D9;
+  --color-autocomplete-hover-background: #3FB950;
+  --color-autocomplete-hover-font: #000;
+  --color-result-engines-font: #A371F7;
+  --color-footer-font: #8B949E;
+  --color-footer-background: #0D1117;
+  --color-category-icon: #DB61A2;
+}

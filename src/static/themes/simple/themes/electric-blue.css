@@ -1,0 +1,13 @@
+/* High voltage */
+:root {
+  --color-base-font: #ffffff;
+  --color-base-background: #000814;
+  --color-btn-background: linear-gradient(135deg, #001a33, #00d4ff);
+  --color-btn-font: #ffffff;
+  --color-search-background: #002d4d;
+  --color-search-border: #001a33;
+  --color-result-background: #002d4d;
+  --color-result-border: #66ccff;
+  --color-result-title-font: #001a33;
+  --color-result-url-font: ;
+}
