@@ -4,7 +4,7 @@
 
 ![Logo](out/img/atomic-search-logo.svg)
 
-**Privacy-First Metasearch Engine | 89+ Themes | Kagi-Style UI**
+**Privacy-First Metasearch Engine | 100+ Themes | Kagi-Style UI**
 
 *Based on SearXNG | Rebranded by UCXP Project*
 
@@ -24,7 +24,7 @@
 - **Anonymous Proxy Routing** - Hide identity from search engines
 - **Privacy Filter** - Removes tracking parameters from URLs
 
-### 🎨 89+ Beautiful Themes
+### 🎨 100+ Beautiful Themes
 **Dark:** macchiato, mocha, nord, dracula, cyberpunk, matrix, kagi, synthwave, nebula, holographic, monokai, galaxy, flame, midnight, obsidian, royal, neon-city, steel-blue, ocean, aurora, gruvbox, hacker, terminal
 
 **Light:** latte, frappe, light, arctic, sky, mint, sakura, lavender, rose, amber, cobalt, violet, slate, solarized, paperwhite, bubblegum, horizon, nature, coral, teal, spring, gold-rush, mint-fresh, chocolate, lavender-fields, forest-light, ocean-deep, ice, lime, nord-frost, pastel-dream
@@ -111,7 +111,7 @@ searxng-better/
 │   │   ├── shortcuts.py
 │   │   ├── translator.py
 │   │   └── ...
-│   └── less/themes/     # 89+ themes
+│   └── less/themes/     # 100+ themes
 └── out/                 # Built assets
 ```
 

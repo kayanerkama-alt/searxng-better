@@ -18,10 +18,10 @@ general:
   open_metrics: ''
 
 brand:
-  docs_url: https://docs.searxng.org/
-  public_instances: https://searx.space
-  wiki_url: https://github.com/searxng/searxng/wiki
-  issue_url: https://github.com/searxng/searxng/issues
+  docs_url: https://docs.atomic-search.io/
+  public_instances: https://atomic-search.space
+  wiki_url: https://github.com/kayanerkama-alt/searxng-better/searxng/wiki
+  issue_url: https://github.com/kayanerkama-alt/searxng-better/searxng/issues
   # custom:
   #   # Custom entries in the footer: [title]: [link]
   #   links:
@@ -109,7 +109,7 @@ server:
   http_protocol_version: "1.0"
   # POST queries are "more secure!" but are also the source of hard-to-locate
   # annoyances, which is why GET may be better for end users and their browsers.
-  # see https://github.com/searxng/searxng/pull/3619
+  # see https://github.com/kayanerkama-alt/searxng-better/searxng/pull/3619
   # Is overwritten by ${SEARXNG_METHOD}
   method: "POST"
   default_http_headers:
@@ -120,7 +120,7 @@ server:
 
 valkey:
   # URL to connect valkey database. Is overwritten by ${SEARXNG_VALKEY_URL}.
-  # https://docs.searxng.org/admin/settings/settings_valkey.html#settings-valkey
+  # https://docs.atomic-search.io/admin/settings/settings_valkey.html#settings-valkey
   # url: valkey://localhost:6379/0
   url: false
 
@@ -220,7 +220,7 @@ outgoing:
 
 
 # Plugin configuration, for more details see
-#   https://docs.searxng.org/admin/settings/settings_plugins.html
+#   https://docs.atomic-search.io/admin/settings/settings_plugins.html
 #
 plugins:
 
@@ -347,7 +347,7 @@ engines:
     engine: adobe_stock
     shortcut: asi
     categories: ["images"]
-    # https://docs.searxng.org/dev/engines/online/adobe_stock.html
+    # https://docs.atomic-search.io/dev/engines/online/adobe_stock.html
     adobe_order: relevance
     adobe_content_types: ["photo", "illustration", "zip_vector", "template", "3d", "image"]
     timeout: 6
@@ -376,7 +376,7 @@ engines:
   - name: astrophysics data system
     engine: astrophysics_data_system
     shortcut: ads
-    # read https://docs.searxng.org/dev/engines/online/astrophysics_data_system.html
+    # read https://docs.atomic-search.io/dev/engines/online/astrophysics_data_system.html
     api_key: ""
     inactive: true
 
@@ -404,7 +404,7 @@ engines:
   # - name: annas articles
   #   engine: annas_archive
   #   shortcut: aaa
-  #   # https://docs.searxng.org/dev/engines/online/annas_archive.html
+  #   # https://docs.atomic-search.io/dev/engines/online/annas_archive.html
   #   aa_content: 'magazine' # book_fiction, book_unknown, book_nonfiction, book_comic
   #   aa_ext: 'pdf'  # pdf, epub, ..
   #   aa_sort: oldest'  # newest, oldest, largest, smallest
@@ -643,8 +643,8 @@ engines:
 
   # WARNING: links from chinaso.com voilate users privacy
   # Before activate these engines its mandatory to read
-  # - https://github.com/searxng/searxng/issues/4694
-  # - https://docs.searxng.org/dev/engines/online/chinaso.html
+  # - https://github.com/kayanerkama-alt/searxng-better/searxng/issues/4694
+  # - https://docs.atomic-search.io/dev/engines/online/chinaso.html
 
   - name: chinaso news
     engine: chinaso
@@ -694,7 +694,7 @@ engines:
   - name: core.ac.uk
     engine: core
     shortcut: cor
-    # read https://docs.searxng.org/dev/engines/online/core.html
+    # read https://docs.atomic-search.io/dev/engines/online/core.html
     api_key: ""
     inactive: true
 
@@ -1173,7 +1173,7 @@ engines:
     timeout: 10.0
 
   - name: codeberg
-    # https://docs.searxng.org/dev/engines/online/gitea.html
+    # https://docs.atomic-search.io/dev/engines/online/gitea.html
     engine: gitea
     base_url: https://codeberg.org
     shortcut: cb
@@ -1363,7 +1363,7 @@ engines:
   # - name: invidious
   #   engine: invidious
   #   # if you want to use invidious with SearXNG you should setup one locally
-  #   # https://github.com/searxng/searxng/issues/2722#issuecomment-2884993248
+  #   # https://github.com/kayanerkama-alt/searxng-better/searxng/issues/2722#issuecomment-2884993248
   #   base_url:
   #     - https://invidious.example1.com
   #     - https://invidious.example2.com
@@ -1504,7 +1504,7 @@ engines:
     shortcut: zlib
     timeout: 7.0
     disabled: true
-    # https://github.com/searxng/searxng/issues/3610
+    # https://github.com/kayanerkama-alt/searxng-better/searxng/issues/3610
     inactive: true
 
   - name: library of congress
@@ -1608,7 +1608,7 @@ engines:
 
   # - name: matrixrooms
   #   engine: mrs
-  #   # https://docs.searxng.org/dev/engines/online/mrs.html
+  #   # https://docs.atomic-search.io/dev/engines/online/mrs.html
   #   # base_url: https://mrs-api-host
   #   shortcut: mtrx
   #   disabled: true
@@ -1637,7 +1637,7 @@ engines:
     shortcut: cpan
     disabled: true
 
-  # https://docs.searxng.org/dev/engines/offline/search-indexer-engines.html#module-searx.engines.meilisearch
+  # https://docs.atomic-search.io/dev/engines/offline/search-indexer-engines.html#module-searx.engines.meilisearch
   # - name: meilisearch
   #   engine: meilisearch
   #   shortcut: mes
@@ -1771,7 +1771,7 @@ engines:
   - name: openalex
     engine: openalex
     shortcut: oa
-    # https://docs.searxng.org/dev/engines/online/openalex.html
+    # https://docs.atomic-search.io/dev/engines/online/openalex.html
     # Recommended by OpenAlex: join the polite pool with an email address
     # mailto: "[email protected]"
     timeout: 5.0
@@ -1921,7 +1921,7 @@ engines:
       # Proxies from public instances.  Ask the public instances owners if they
       # agree to receive traffic from SearXNG!
       #    --> https://codeberg.org/VnPower/PixivFE#instances
-      #    --> https://github.com/searxng/searxng/pull/3192#issuecomment-1941095047
+      #    --> https://github.com/kayanerkama-alt/searxng-better/searxng/pull/3192#issuecomment-1941095047
       # image proxy of https://pixiv.cat
       # - https://i.pixiv.cat
       # image proxy of https://www.pixiv.pics
@@ -2117,7 +2117,7 @@ engines:
   - name: reuters
     engine: reuters
     shortcut: reu
-    # https://docs.searxng.org/dev/engines/online/reuters.html
+    # https://docs.atomic-search.io/dev/engines/online/reuters.html
     # sort_order = "relevance"
 
   - name: rottentomatoes
@@ -2292,7 +2292,7 @@ engines:
     engine: springer
     shortcut: springer
     timeout: 5
-    # read https://docs.searxng.org/dev/engines/online/springer.html
+    # read https://docs.atomic-search.io/dev/engines/online/springer.html
     api_key: ""
     inactive: true
 
@@ -2434,7 +2434,7 @@ engines:
     shortcut: tch
 
   # TubeArchivist is a self-hosted Youtube archivist software.
-  # https://docs.searxng.org/dev/engines/online/tubearchivist.html
+  # https://docs.atomic-search.io/dev/engines/online/tubearchivist.html
   #
   # - name: tubearchivist
   #   engine: tubearchivist
@@ -2446,7 +2446,7 @@ engines:
   # torznab engine lets you query any torznab compatible indexer.  Using this
   # engine in combination with Jackett opens the possibility to query a lot of
   # public and private indexers directly from SearXNG. More details at:
-  # https://docs.searxng.org/dev/engines/online/torznab.html
+  # https://docs.atomic-search.io/dev/engines/online/torznab.html
   - name: Torznab EZTV
     engine: torznab
     shortcut: eztv
@@ -2871,11 +2871,11 @@ engines:
     disabled: true
 
   - name: yacy
-    # https://docs.searxng.org/dev/engines/online/yacy.html
+    # https://docs.atomic-search.io/dev/engines/online/yacy.html
     engine: yacy
     categories: general
     search_type: text
-    # see https://github.com/searxng/searxng/pull/3631#issuecomment-2240903027
+    # see https://github.com/kayanerkama-alt/searxng-better/searxng/pull/3631#issuecomment-2240903027
     base_url:
       - https://yacy.searchlab.eu
     shortcut: ya
@@ -3195,7 +3195,7 @@ engines:
 
   - name: braveapi
     engine: braveapi
-    # read https://docs.searxng.org/dev/engines/online/brave.html
+    # read https://docs.atomic-search.io/dev/engines/online/brave.html
     api_key: ""
     inactive: true
 
@@ -3247,7 +3247,7 @@ engines:
   - name: sourcehut
     shortcut: srht
     engine: sourcehut
-    # https://docs.searxng.org/dev/engines/online/sourcehut.html
+    # https://docs.atomic-search.io/dev/engines/online/sourcehut.html
     # sourcehut_sort_order: longest-active
     disabled: true
 

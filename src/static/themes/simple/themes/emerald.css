@@ -1,0 +1,13 @@
+/* Emerald - Rich green */
+:root {
+  --color-base-font: #f0fdf4;
+  --color-base-background: #064e3b;
+  --color-btn-background: linear-gradient(135deg, #059669, #10b981);
+  --color-btn-font: #fff;
+  --color-search-background: #065f46;
+  --color-search-border: #34d399;
+  --color-result-background: #065f46;
+  --color-result-border: #047857;
+  --color-result-title-font: #a7f3d0;
+  --color-result-url-font: #6ee7b7;
+}

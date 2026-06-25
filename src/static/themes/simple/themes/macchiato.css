@@ -1,0 +1,13 @@
+/* Macchiato - Warm brown tones */
+:root {
+  --color-base-font: #cad3f5;
+  --color-base-background: #24273a;
+  --color-btn-background: linear-gradient(135deg, #ed8796, #ee99a0);
+  --color-btn-font: #24273a;
+  --color-search-background: #1e1e2e;
+  --color-search-border: #c6a0f6;
+  --color-result-background: #1e1e2e;
+  --color-result-border: #363a4f;
+  --color-result-title-font: #8bd5ca;
+  --color-result-url-font: #8aadf4;
+}

@@ -1,0 +1,13 @@
+/* Diamond - Crystal clear */
+:root {
+  --color-base-font: #1a1a2e;
+  --color-base-background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+  --color-btn-background: linear-gradient(135deg, #667eea, #764ba2);
+  --color-btn-font: #fff;
+  --color-search-background: #fff;
+  --color-search-border: #667eea;
+  --color-result-background: #fff;
+  --color-result-border: #dee2e6;
+  --color-result-title-font: #495057;
+  --color-result-url-font: #667eea;
+}

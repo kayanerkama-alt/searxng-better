@@ -1,0 +1,13 @@
+/* Midnight - Deep blue dark */
+:root {
+  --color-base-font: #e3f2fd;
+  --color-base-background: #0d1b2a;
+  --color-btn-background: linear-gradient(135deg, #1b263b, #415a77);
+  --color-btn-font: #fff;
+  --color-search-background: #1b263b;
+  --color-search-border: #778da9;
+  --color-result-background: #1b263b;
+  --color-result-border: #415a77;
+  --color-result-title-font: #e0e1dd;
+  --color-result-url-font: #778da9;
+}

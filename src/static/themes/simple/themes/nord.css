@@ -1,0 +1,13 @@
+/* Nord - Arctic cool */
+:root {
+  --color-base-font: #eceff4;
+  --color-base-background: #2e3440;
+  --color-btn-background: linear-gradient(135deg, #5e81ac, #81a1c1);
+  --color-btn-font: #eceff4;
+  --color-search-background: #3b4252;
+  --color-search-border: #88c0d0;
+  --color-result-background: #3b4252;
+  --color-result-border: #4c566a;
+  --color-result-title-font: #88c0d0;
+  --color-result-url-font: #8fbcbb;
+}

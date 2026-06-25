@@ -1,0 +1,13 @@
+/* Ruby - Rich red gem */
+:root {
+  --color-base-font: #fff1f2;
+  --color-base-background: #1f1015;
+  --color-btn-background: linear-gradient(135deg, #be123c, #e11d48);
+  --color-btn-font: #fff;
+  --color-search-background: #2d1520;
+  --color-search-border: #fb7185;
+  --color-result-background: #2d1520;
+  --color-result-border: #4d2030;
+  --color-result-title-font: #fecdd3;
+  --color-result-url-font: #fda4af;
+}

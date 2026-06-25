@@ -1,0 +1,13 @@
+/* Sunset Vibes - Warm evening */
+:root {
+  --color-base-font: #3d3d3d;
+  --color-base-background: linear-gradient(180deg, #ff9a9e, #fecfef, #fecfef);
+  --color-btn-background: linear-gradient(135deg, #f093fb, #f5576c);
+  --color-btn-font: #fff;
+  --color-search-background: #fff;
+  --color-search-border: #f5576c;
+  --color-result-background: rgba(255, 255, 255, 0.9);
+  --color-result-border: #f8bbd9;
+  --color-result-title-font: #c2185b;
+  --color-result-url-font: #e91e63;
+}

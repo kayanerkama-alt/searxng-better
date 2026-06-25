@@ -1,0 +1,14 @@
+/* Monokai - Classic code editor */
+:root {
+  --color-base-font: #f8f8f2;
+  --color-base-background: #272822;
+  --color-btn-background: #75715e;
+  --color-btn-font: #fff;
+  --color-search-background: #3e3d32;
+  --color-search-border: #75715e;
+  --color-result-background: #272822;
+  --color-result-border: #49483e;
+  --color-result-title-font: #a6e22e;
+  --color-result-url-font: #66d9ef;
+  --color-result-description-font: #f8f8f2;
+}

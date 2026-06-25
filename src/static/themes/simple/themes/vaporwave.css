@@ -1,0 +1,13 @@
+/* Aesthetic vibes */
+:root {
+  --color-base-font: #ff99cc;
+  --color-base-background: #1a0a1a;
+  --color-btn-background: linear-gradient(135deg, #2d1a2d, #ff99cc);
+  --color-btn-font: #ffffff;
+  --color-search-background: #4d2a4d;
+  --color-search-border: #2d1a2d;
+  --color-result-background: #4d2a4d;
+  --color-result-border: #00ffff;
+  --color-result-title-font: #2d1a2d;
+  --color-result-url-font: ;
+}

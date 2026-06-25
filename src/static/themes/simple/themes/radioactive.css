@@ -1,0 +1,13 @@
+/* Hazard theme */
+:root {
+  --color-base-font: #f0f0f0;
+  --color-base-background: #1a2e1a;
+  --color-btn-background: linear-gradient(135deg, #243324, #00ff00);
+  --color-btn-font: #ffffff;
+  --color-search-background: #324532;
+  --color-search-border: #243324;
+  --color-result-background: #324532;
+  --color-result-border: #ffff00;
+  --color-result-title-font: #243324;
+  --color-result-url-font: ;
+}

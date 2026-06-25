@@ -1,0 +1,15 @@
+/* Nebula Theme - Cosmic beauty */
+:root {
+  --color-base-font: #f0f0f0;
+  --color-base-background: linear-gradient(180deg, #000428 0%, #004e92 100%);
+  --color-btn-background: linear-gradient(90deg, #00c6ff, #0072ff);
+  --color-btn-font: #fff;
+  --color-search-background: rgba(0, 78, 146, 0.5);
+  --color-search-border: #00c6ff;
+  --color-result-background: rgba(0, 78, 146, 0.3);
+  --color-result-border: rgba(0, 198, 255, 0.3);
+  --color-result-title-font: #00c6ff;
+  --color-result-url-font: #4facfe;
+  --color-result-description-font: #c0c0c0;
+  --color-highlight-background: rgba(0, 198, 255, 0.2);
+}

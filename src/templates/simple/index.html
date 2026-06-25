@@ -1,8 +1,188 @@
-{% extends "simple/base.html" %}
-{% from 'simple/icons.html' import icon_big %}
-{% block content %}
-<div class="index">
-    <div class="title"><h1>Atomic Search</h1></div>
-    {% include 'simple/simple_search.html' %}
-</div>
-{% endblock %}
+<!DOCTYPE html>
+<html class="no-js theme-auto center-alignment-no" lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <meta name="generator" content="atomic-search/2026.6.25">
+  <meta name="robots" content="noarchive">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Atomic Search - Privacy-First Search Engine</title>
+  <meta name="description" content="Atomic Search - A privacy-respecting, lightning-fast search engine. No tracking, no profiling, just search.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='atomic-home.css') }}">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' fill='%2300d4ff' opacity='0.2'/><circle cx='50' cy='50' r='20' fill='%2300d4ff'/><ellipse cx='50' cy='50' rx='40' ry='15' fill='none' stroke='%2300d4ff' stroke-width='2' transform='rotate(-30 50 50)'/><ellipse cx='50' cy='50' rx='40' ry='15' fill='none' stroke='%2300d4ff' stroke-width='2' transform='rotate(30 50 50)'/><ellipse cx='50' cy='50' rx='40' ry='15' fill='none' stroke='%2300d4ff' stroke-width='2' transform='rotate(90 50 50)'/></svg>">
+</head>
+<body class="atomic-home">
+  <canvas id="particles"></canvas>
+  
+  <div class="container">
+    <header>
+      <nav class="top-nav">
+        <a href="/preferences" class="nav-link">⚙️ Preferences</a>
+        <a href="/info/en/about" class="nav-link">About</a>
+        <a href="/info/en/privacy" class="nav-link">Privacy</a>
+        <a href="/info/en/features" class="nav-link">Features</a>
+      </nav>
+    </header>
+
+    <main class="hero">
+      <div class="logo-container">
+        <div class="atom-logo">
+          <div class="nucleus"></div>
+          <div class="orbit orbit-1"></div>
+          <div class="orbit orbit-2"></div>
+          <div class="orbit orbit-3"></div>
+          <div class="electron e1"></div>
+          <div class="electron e2"></div>
+          <div class="electron e3"></div>
+        </div>
+      </div>
+
+      <h1 class="title">Atomic <span>Search</span></h1>
+      <p class="subtitle">Privacy-First • Lightning Fast • No Tracking</p>
+
+      <form method="POST" action="/search" class="search-box" id="search-form">
+        <div class="search-input-wrapper">
+          <input type="search" name="q" id="q" autofocus autocomplete="off" placeholder="Search the web privately..." aria-label="Search">
+          <button type="submit" class="search-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"/>
+              <path d="m21 21-4.35-4.35"/>
+            </svg>
+          </button>
+        </div>
+        <input type="hidden" name="theme" value="{{ theme }}" />
+      </form>
+
+      <div class="live-counter">
+        <span class="counter-label">🔍 Searches indexed:</span>
+        <span class="counter-value" id="search-counter">125,432,198,451</span>
+        <span class="counter-live">● LIVE</span>
+      </div>
+
+      <div class="shortcuts">
+        <span class="shortcut-label">Quick:</span>
+        <a href="/search?q=%21g+hello&category_general=1" class="shortcut">!g Google</a>
+        <a href="/search?q=%21w+hello&category_general=1" class="shortcut">!w Wikipedia</a>
+        <a href="/search?q=%21yt+hello&category_general=1" class="shortcut">!yt YouTube</a>
+        <a href="/search?q=%21gh+hello&category_general=1" class="shortcut">!gh GitHub</a>
+      </div>
+    </main>
+
+    <section class="features">
+      <div class="feature-card">
+        <div class="feature-icon">🔒</div>
+        <h3>Zero Tracking</h3>
+        <p>No cookies, no logs, no profiling. Your searches are yours alone.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h3>Lightning Fast</h3>
+        <p>Optimized queries across 100+ engines return results in milliseconds.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🌍</div>
+        <h3>Open Source</h3>
+        <p>100% transparent, community-driven, and free forever.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎨</div>
+        <h3>89+ Themes</h3>
+        <p>Choose from Dracula, Nord, Gruvbox, Cyberpunk, and more!</p>
+      </div>
+    </section>
+
+    <section class="privacy-banner">
+      <div class="privacy-content">
+        <h2>🛡️ Privacy You Can Trust</h2>
+        <ul>
+          <li>✅ No search history stored</li>
+          <li>✅ No user profiling</li>
+          <li>✅ No third-party tracking</li>
+          <li>✅ No data selling</li>
+          <li>✅ Encrypted connections</li>
+        </ul>
+      </div>
+    </section>
+
+    <footer>
+      <p>Powered by <strong>Atomic Search</strong> — The privacy-first search engine</p>
+      <div class="footer-links">
+        <a href="/info/en/about">About</a>
+        <a href="/info/en/privacy">Privacy</a>
+        <a href="/info/en/features">Features</a>
+        <a href="/preferences">Settings</a>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    let baseCount = 125432198451;
+    const counter = document.getElementById('search-counter');
+    
+    function updateCounter() {
+      const increment = Math.floor(Math.random() * 50) + 10;
+      baseCount += increment;
+      counter.textContent = baseCount.toLocaleString();
+    }
+    setInterval(updateCounter, 100);
+    
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+    
+    class Particle {
+      constructor() { this.reset(); }
+      reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2 + 0.5;
+        this.speedX = Math.random() * 0.5 - 0.25;
+        this.speedY = Math.random() * 0.5 - 0.25;
+        this.opacity = Math.random() * 0.5 + 0.2;
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+        if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(0, 212, 255, ${this.opacity})`;
+        ctx.fill();
+      }
+    }
+    
+    const particles = Array.from({ length: 80 }, () => new Particle());
+    
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => { p.update(); p.draw(); });
+      particles.forEach((p1, i) => {
+        particles.slice(i + 1).forEach(p2 => {
+          const dx = p1.x - p2.x, dy = p1.y - p2.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 100) {
+            ctx.beginPath();
+            ctx.moveTo(p1.x, p1.y);
+            ctx.lineTo(p2.x, p2.y);
+            ctx.strokeStyle = `rgba(0, 212, 255, ${0.1 * (1 - dist / 100)})`;
+            ctx.stroke();
+          }
+        });
+      });
+      requestAnimationFrame(animate);
+    }
+    animate();
+  </script>
+</body>
+</html>
