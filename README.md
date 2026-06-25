@@ -1,15 +1,15 @@
 # 🔮 Atomic Search
 
 <div align="center">
-<img src="out/img/atomic.svg" width="120" alt="Atomic Search">
 
-**Privacy-First Metasearch Engine | 50+ Themes | Kagi-Style UI**
+![Logo](out/img/logo.svg)
+
+**Privacy-First Metasearch Engine | 71+ Themes | Kagi-Style UI**
 
 *Based on SearXNG | Rebranded by UCXP Project*
 
 [![License: AGPL-3.0](https://img.shields.io/badge/License-AGPL--3.0-blue.svg)](https://www.gnu.org/licenses/agpl-3.0.en.html)
-[![Docker](https://img.shields.io/badge/Docker-Ready-2496ed?logo=docker)](https://hub.docker.com/r/privau/searxng)
-[![Railway](https://img.shields.io/badge/Railway-Deploy-95d26f?logo=railway)](https://railway.app)
+[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app)
 
 **[Live Demo](https://priv.au)** | **[Deploy on Railway](https://railway.app)** | **[Deploy on Render](https://render.com)**
 
@@ -22,26 +22,23 @@
 ### 🔐 Privacy First
 - **Zero Tracking** - No logs, no cookies, no fingerprinting
 - **Anonymous Proxy Routing** - Hide identity from search engines
-- **End-to-End Encryption** - HTTPS everywhere
 - **Privacy Filter** - Removes tracking parameters from URLs
 
-### 🎨 50+ Beautiful Themes
-| Category | Themes |
-|----------|--------|
-| Dark | macchiato, nord, dracula, cyberpunk, matrix, kagi, synthwave, nebula |
-| Light | latte, frappe, ocean, sakura, paperwhite, bubblegum |
-| Special | holographic, aurora, horizon, monokai, forest, aurora |
+### 🎨 71+ Beautiful Themes
+**Dark:** macchiato, mocha, nord, dracula, cyberpunk, matrix, kagi, synthwave, nebula, holographic, monokai, galaxy, flame, midnight, obsidian, royal, neon-city, steel-blue, ocean, aurora, gruvbox, hacker, terminal
+
+**Light:** latte, frappe, light, arctic, sky, mint, sakura, lavender, rose, amber, cobalt, violet, slate, solarized, paperwhite, bubblegum, horizon, nature, coral, teal, spring, gold-rush, mint-fresh, chocolate, lavender-fields, forest-light, ocean-deep, ice, lime, nord-frost, pastel-dream
 
 ### 🏆 Kagi-Style Features
 - **Domain Ranking** - Pin, boost, or block domains
-- **Quality Badges** - Trust indicators on results
-- **Instant Answers** - Calculator, conversions, weather
-- **Search Shortcuts** - `!g`, `!w`, `!gh`, `!yt`, etc.
+- **Trust Badges** - Quality indicators on results
+- **Instant Answers** - Calculator, currency conversion
+- **Search Shortcuts** - `!g`, `!w`, `!gh`, `!yt`, `!r`, `!so`
 
-### 🔒 Security
-- **Scam Detection** - URL safety checking
-- **Phishing Protection** - Warning indicators
-- **Free API Keys** - Zero-config API access
+### 🔑 Free API
+- Zero-config API keys
+- 100-10000 requests/day
+- No registration required
 
 ---
 
@@ -50,59 +47,85 @@
 ### Railway (Recommended)
 ```bash
 # 1. Fork this repo
-# 2. Connect to Railway
-# 3. Deploy!
+# 2. Go to railway.app and create new project
+# 3. Connect your GitHub repo
+# 4. Deploy!
 ```
 
 ### Render
 ```bash
-# Use render.yaml blueprint
-# or manual setup
+# Use render.yaml or manual setup
 ```
 
 ### Docker
 ```bash
-docker-compose up -d
+docker build -t atomic-search .
+docker run -p 8080:8080 atomic-search
 ```
 
 ---
 
 ## 🔑 Search Shortcuts
 
-| Shortcut | Engine |
-|----------|--------|
-| `!g` | Google |
-| `!w` | Wikipedia |
-| `!gh` | GitHub |
-| `!yt` | YouTube |
-| `!r` | Reddit |
-| `!so` | StackOverflow |
+| Shortcut | Engine | Example |
+|----------|--------|---------|
+| `!g` | Google | `!g python` |
+| `!w` | Wikipedia | `!w javascript` |
+| `!gh` | GitHub | `!gh react hooks` |
+| `!yt` | YouTube | `!yt coding tutorial` |
+| `!so` | StackOverflow | `!so async await` |
+| `!r` | Reddit | `!r webdev` |
+| `!hn` | Hacker News | `!hn ai news` |
+| `!maps` | Maps | `!maps coffee shop` |
 
 ---
 
-## ⚡ Performance
+## ⌨️ Keyboard Shortcuts
 
-- Pre-compiled Python
-- Gzip/Brotli compression
-- Healthcheck at `/healthz`
-- Non-root user security
+| Key | Action |
+|-----|--------|
+| `/` | Focus search |
+| `j` / `k` | Navigate results |
+| `Enter` | Open result |
+| `Esc` | Clear/blur |
 
 ---
 
-## 📁 Project
+## 📁 Project Structure
 
 ```
-Based on SearXNG
-Maintained by UCXP Project
-AGPL-3.0 License
+searxng-better/
+├── Dockerfile           # Railway/Render ready
+├── docker-compose.yml   # Local dev
+├── railway.toml         # Railway config
+├── render.yaml          # Render config
+├── src/
+│   ├── js/              # UI enhancements
+│   │   ├── atomic-search.js
+│   │   ├── bookmarks.js
+│   │   ├── quick-settings.js
+│   │   ├── search-tips.js
+│   │   └── theme-toggle.js
+│   ├── search/          # Search features
+│   │   ├── ai_summary.py
+│   │   ├── shortcuts.py
+│   │   ├── translator.py
+│   │   └── ...
+│   └── less/themes/     # 71+ themes
+└── out/                 # Built assets
 ```
+
+---
+
+## 📝 License
+
+AGPL-3.0 - Based on SearXNG
 
 ---
 
 <div align="center">
 
-**Made with ❤️ for privacy**
-
+**Made with ❤️ for privacy**  
 **Based on SearXNG | Rebranded by UCXP Project**
 
 </div>

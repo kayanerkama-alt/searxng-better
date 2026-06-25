@@ -2,14 +2,11 @@
   plugin = "docker"
 
 [atomic-search]
-  dockerfile = "Dockerfile"
+  dockerfilePath = "Dockerfile"
 
-[atomic-search.variables]
-  NAME = "Atomic Search"
-  GRANIAN_HOST = "0.0.0.0"
-  GRANIAN_PORT = "8080"
-  IMAGE_PROXY = "true"
-
-[atomic-search.health]
+[atomic-search.healthcheck]
+  path = "/"
   port = 8080
-  path = "/healthz"
+  intervalSeconds = 30
+  timeoutSeconds = 10
+  startPeriodSeconds = 120
