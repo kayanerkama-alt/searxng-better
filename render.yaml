@@ -9,6 +9,7 @@ services:
     plan: starter
     dockerfilePath: ./Dockerfile
     healthCheckPath: /healthz
+    numInstances: 1
     envVars:
       - key: NAME
         value: "Atomic Search"
@@ -28,15 +29,3 @@ services:
         value: "8080"
       - key: SECRET_KEY
         generateValue: true
-      - key: LIMITER
-        value: "true"
-      - key: REDIS_URL
-        fromDatabase:
-          name: atomic-search-redis
-          property: connectionString
-    # Optional: Add Redis for rate limiting
-    # databases:
-    #   - name: atomic-search-redis
-    #     plan: starter
-    #     databaseName: atomic_search_redis
-    #     ipAllowList: []
