@@ -129,3 +129,16 @@ AGPL-3.0 - Based on SearXNG
 **Based on SearXNG | Rebranded by UCXP Project**
 
 </div>
+
+---
+
+## Screenshots
+
+### Homepage
+![Homepage](screenshots/homepage.png)
+
+### Search Results
+![Search Results](screenshots/search-results.png)
+
+### Preferences Panel
+![Preferences](screenshots/preferences.png)
