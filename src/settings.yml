@@ -2297,18 +2297,21 @@ engines:
     inactive: true
 
   - name: startpage
+    disabled: true
     engine: startpage
     shortcut: sp
     startpage_categ: web
     categories: [general, web]
 
   - name: startpage news
+    disabled: true
     engine: startpage
     startpage_categ: news
     categories: [news, web]
     shortcut: spn
 
   - name: startpage images
+    disabled: true
     engine: startpage
     startpage_categ: images
     categories: [images, web]
