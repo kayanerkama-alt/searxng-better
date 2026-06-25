@@ -40,5 +40,5 @@ RUN mkdir -p /app/searxng-data
 
 EXPOSE 8888
 
-# Run SearXNG
-CMD ["python", "-m", "searx.webapp", "--bind", "0.0.0.0", "--port", "8888"]
+# Run SearXNG - Railway provides PORT env var
+CMD ["sh", "-c", "python -m searx.webapp --bind 0.0.0.0 --port ${PORT:-8888}"]

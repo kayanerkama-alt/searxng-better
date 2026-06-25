@@ -3,6 +3,7 @@
 
 [atomic-search]
   dockerfilePath = "Dockerfile"
+  port = 8888
 
 [atomic-search.healthcheck]
   path = "/"
