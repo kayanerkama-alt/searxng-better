@@ -1,5 +1,59 @@
 {% extends "simple/base.html" %}
 {% from 'simple/icons.html' import icon_big %}
+{% block head %}
+{{ super() }}
+<style>
+body {
+    background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%) !important;
+    min-height: 100vh;
+}
+.index {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 100px);
+    padding: 20px;
+}
+.index-logo {
+    width: 180px;
+    height: 180px;
+    animation: logoFloat 3s ease-in-out infinite;
+    filter: drop-shadow(0 0 30px rgba(102, 126, 234, 0.5));
+}
+@keyframes logoFloat {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+}
+#search_form {
+    background: rgba(255,255,255,0.1) !important;
+    border-radius: 50px !important;
+    padding: 8px 20px !important;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.2);
+    max-width: 600px;
+    width: 100%;
+}
+#search_form input {
+    background: transparent !important;
+    color: white !important;
+    font-size: 18px;
+}
+#search_form button {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    border: none !important;
+    border-radius: 30px !important;
+    color: white !important;
+    padding: 10px 25px !important;
+}
+footer {
+    background: rgba(0,0,0,0.3) !important;
+    color: rgba(255,255,255,0.7);
+    padding: 20px;
+}
+footer a { color: #667eea !important; }
+</style>
+{% endblock %}
 {% block content %}
 <div class="index">
     <div class="title"><img src="{{ url_for('static', filename='atomic-logo.svg') }}" alt="{{ instance_name }}" class="index-logo"></div>
