@@ -22,23 +22,22 @@
 
 ### 🎨 40+ Beautiful Themes
 Choose from an extensive collection of hand-crafted themes:
-- **Dark Mode**: night, mocha, macchiato, dracula, nord, kagi
-- **Light Mode**: latte, frappe, light, arctic, sky, mint
-- **Special**: cyberpunk, matrix, hacker, terminal, cosmic, sakura, pixel
-- **Nature**: forest, ocean, sunset
-- **Elegant**: violet, lavender, cobalt, crimson, rose, amber
+- **Dark Mode**: night, mocha, macchiato, dracula, nord, kagi, cyberpunk, matrix, hacker, cosmic, slate
+- **Light Mode**: latte, frappe, light, arctic, sky, mint, sakura, lavender, rose, amber
+- **Special**: terminal, solarized, pixel, ocean, forest, sunset, crimson, cobalt, violet
 - And many more...
 
-### 🏆 Kagi-Inspired Quality
-- **Smart Ranking**: Quality-based result prioritization
-- **Clean UI**: Distraction-free search experience
-- **Instant Answers**: Direct answers without clicking
-- **Related Searches**: Discover relevant queries
+### ☁️ Cloud-Ready
+- **Railway**: One-click deployment with `railway.toml`
+- **Render**: Blueprint deployment with `render.yaml`
+- **Docker**: Optimized multi-stage builds
+- **Healthcheck**: Built-in `/healthz` endpoint
 
-### ⚡ Performance
-- **Fast Results**: Parallel engine queries
-- **Lightweight**: Minimal resource usage
-- **Docker Ready**: One-command deployment
+### ⚡ Performance Optimized
+- **Pre-compiled Python**: Faster startup
+- **Gzip/Brotli**: Compressed static assets
+- **Multi-stage Build**: Smaller image size
+- **Non-root User**: Enhanced security
 
 ---
 
@@ -49,7 +48,14 @@ Choose from an extensive collection of hand-crafted themes:
 docker run -d --restart always -p 127.0.0.1:8080:8080 --name atomic-search ghcr.io/privau/searxng
 ```
 
-Visit `http://127.0.0.1:8080` in your browser.
+### Docker Compose
+```bash
+# Without Redis (default)
+docker-compose up -d
+
+# With Redis for rate limiting
+docker-compose --profile with-redis up -d
+```
 
 ### Build from Source
 
@@ -68,17 +74,67 @@ cd searxng
 
 4. Build Docker image:
 ```bash
-docker build --pull -f ./Dockerfile -t atomic-search:latest .
+docker build -f ./Dockerfile -t atomic-search:latest .
 ```
 
 5. Run:
 ```bash
-docker run -it --rm -p 8080:8080 atomic-search:latest
+docker run -p 8080:8080 atomic-search:latest
 ```
 
-Or use the development script:
+---
+
+## ☁️ Cloud Deployment
+
+### Railway (Recommended)
+
+1. Fork this repository
+2. Create a new project on [Railway](https://railway.app)
+3. Connect your GitHub repo
+4. Deploy automatically!
+
+Or use the `railway.toml` for configuration:
+
 ```bash
-./development.sh
+# Install Railway CLI
+npm i -g @railway/cli
+
+# Login
+railway login
+
+# Deploy
+railway up
+```
+
+**Environment Variables on Railway:**
+- `NAME`: Your instance name
+- `IMAGE_PROXY`: Set to `true` for image proxy
+- `LIMITER`: Set to `true` to enable rate limiting
+- `REDIS_URL`: Redis connection string (if using LIMITER)
+- `SECRET_KEY`: Your secret key
+
+### Render
+
+1. Fork this repository
+2. Create a new Web Service on [Render](https://render.com)
+3. Connect your GitHub repo
+4. Use `render.yaml` for automatic configuration
+
+Or manual setup:
+- **Build Command**: (empty)
+- **Start Command**: `bash /usr/local/bin/run.sh`
+- **Health Check Path**: `/healthz`
+
+### Railway + Redis (Rate Limiting)
+
+Enable bot protection with Redis:
+
+```bash
+# Using Docker Compose
+REDIS_URL=redis://localhost:6379 docker-compose up -d
+
+# Environment variable
+REDIS_URL=redis://your-redis-url
 ```
 
 ---
@@ -112,6 +168,8 @@ All variables are optional. If not set, defaults are used.
 | `PROXY` | Comma-separated proxies | - |
 | `BASE_URL` | Instance base URL | - |
 | `NAME` | Instance name | `Atomic Search` |
+| `GRANIAN_HOST` | Bind address | `0.0.0.0` |
+| `GRANIAN_PORT` | Bind port | `8080` |
 
 ### Privacy & Security
 | Variable | Description | Default |
@@ -207,12 +265,34 @@ Each instance can have a custom privacy policy. Visit `/privacy` on your instanc
 
 ---
 
+## 🏗️ Project Structure
+
+```
+atomic-search/
+├── src/
+│   ├── less/           # Theme LESS files
+│   │   └── themes/     # Individual themes
+│   ├── privacy-policy/
+│   ├── captcha/
+│   ├── auth/
+│   └── search/
+├── out/                # Compiled static files
+├── Dockerfile          # Standard build
+├── Dockerfile.optimized # Production optimized
+├── docker-compose.yml  # Local development
+├── railway.toml        # Railway deployment
+├── render.yaml         # Render deployment
+└── .env.example       # Environment template
+```
+
+---
+
 ## 📦 Tech Stack
 
 - **Backend**: [SearXNG](https://github.com/searxng/searxng)
 - **Styling**: LESS/CSS
 - **Container**: Docker
-- **Web Server**: Granian
+- **Web Server**: Granian (Rust-based)
 
 ---
 

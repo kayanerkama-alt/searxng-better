@@ -1,0 +1,42 @@
+# Render.com Blueprint for Atomic Search
+# Deploy to: https://render.com
+
+services:
+  - type: web
+    name: atomic-search
+    env: docker
+    region: oregon
+    plan: starter
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /healthz
+    envVars:
+      - key: NAME
+        value: "Atomic Search"
+      - key: SIMPLE_STYLE
+        value: "macchiato"
+      - key: SAFE_SEARCH
+        value: "1"
+      - key: AUTOCOMPLETE
+        value: "google"
+      - key: HTTP_PROTOCOL_VERSION
+        value: "1.1"
+      - key: IMAGE_PROXY
+        value: "true"
+      - key: GRANIAN_HOST
+        value: "0.0.0.0"
+      - key: GRANIAN_PORT
+        value: "8080"
+      - key: SECRET_KEY
+        generateValue: true
+      - key: LIMITER
+        value: "true"
+      - key: REDIS_URL
+        fromDatabase:
+          name: atomic-search-redis
+          property: connectionString
+    # Optional: Add Redis for rate limiting
+    # databases:
+    #   - name: atomic-search-redis
+    #     plan: starter
+    #     databaseName: atomic_search_redis
+    #     ipAllowList: []

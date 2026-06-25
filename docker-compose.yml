@@ -1,0 +1,78 @@
+# Docker Compose for Atomic Search
+# Optimized for local development and production
+
+version: '3.8'
+
+services:
+  atomic-search:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: atomic-search
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      # Basic Settings
+      - NAME=Atomic Search
+      - GRANIAN_HOST=0.0.0.0
+      - GRANIAN_PORT=8080
+      - SIMPLE_STYLE=macchiato
+      
+      # Privacy & Performance
+      - IMAGE_PROXY=true
+      - SAFE_SEARCH=1
+      - AUTOCOMPLETE=google
+      - HTTP_PROTOCOL_VERSION=1.1
+      
+      # Security
+      - SECRET_KEY=${SECRET_KEY:-}
+      
+      # Rate Limiting (requires Redis)
+      - LIMITER=${LIMITER:-}
+      - REDIS_URL=${REDIS_URL:-}
+      - PUBLIC_INSTANCE=${PUBLIC_INSTANCE:-}
+      
+      # Branding
+      - PRIVACYPOLICY=${PRIVACYPOLICY:-}
+      - CONTACT=${CONTACT:-}
+      - ISSUE_URL=${ISSUE_URL:-}
+      
+      # Search Defaults
+      - GOOGLE_DEFAULT=true
+      - BING_DEFAULT=false
+      - BRAVE_DEFAULT=false
+      - DUCKDUCKGO_DEFAULT=false
+      - SEARCH_DEFAULT_LANG=auto
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:8080/healthz"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    volumes:
+      - ./data:/data
+    networks:
+      - atomic-network
+
+  # Optional Redis for rate limiting
+  redis:
+    image: redis:7-alpine
+    container_name: atomic-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    command: redis-server --maxmemory 256mb --maxmemory-policy allkeys-lru
+    volumes:
+      - redis-data:/data
+    networks:
+      - atomic-network
+    profiles:
+      - with-redis
+
+networks:
+  atomic-network:
+    driver: bridge
+
+volumes:
+  redis-data:

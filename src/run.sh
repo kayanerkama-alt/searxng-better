@@ -1,5 +1,13 @@
 #!/bin/sh
 
+# ============================================
+# Atomic Search - Optimized Startup Script
+# ============================================
+
+set -e
+
+# Performance: Pre-compile Python files
+find /usr/local/searxng/searx -name "*.py" -exec python -m compileall {} + 2>/dev/null || true
 
 # enable built in image proxy
 if [ ! -z "${IMAGE_PROXY}" ]; then
@@ -39,6 +47,9 @@ fi
 # set instance name
 if [ ! -z "${NAME}" ]; then
     sed -i -e "/instance_name:/s/SearXNG/${NAME}/g" \
+    searx/settings.yml;
+else
+    sed -i -e "/instance_name:/s/SearXNG/Atomic Search/g" \
     searx/settings.yml;
 fi
 
@@ -217,9 +228,18 @@ if [ ! -z "${DONATION_URL}" ]; then
 fi
 if [ ! -z "${MONERO_ADDRESS}" ]; then
     case "${MONERO_ADDRESS}" in monero:*) monero_uri="${MONERO_ADDRESS}" ;; *) monero_uri="monero:${MONERO_ADDRESS}" ;; esac
-    case "${monero_uri}" in *\?*) ;; *) monero_uri="${monero_uri}?tx_description=PrivAU+Donation" ;; esac
+    case "${monero_uri}" in *\?*) ;; *) monero_uri="${monero_uri}?tx_description=Atomic+Search+Donation" ;; esac
     monero_display=$(echo "${MONERO_ADDRESS}" | sed 's|^monero:||')
     sed -i -e "s|__MONERO_URI__|${monero_uri}|g" -e "s|__MONERO_ADDRESS__|${monero_display}|g" searx/templates/simple/donation.html;
 fi
 
+# Healthcheck endpoint - respond to /healthz
+if [ ! -z "${HEALTHCHECK}" ] || [ "${LIMITER}" = "true" ]; then
+    sed -i '/^@app.route/a\
+@app.route("/healthz")\
+def healthz():\
+    return "OK", 200' searx/webapp.py 2>/dev/null || true
+fi
+
+echo "🚀 Starting Atomic Search..."
 exec /usr/local/searxng/venv/bin/granian searx.privau_wsgi:app
