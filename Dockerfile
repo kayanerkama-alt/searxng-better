@@ -39,10 +39,14 @@ RUN if [ -d ./src/search ]; then \
 RUN sed -i 's/"SearXNG"/"Atomic Search"/g' ./searx/settings.yml && \
     sed -i 's/SearXNG/Atomic Search/g' ./searx/settings.yml
 
-# Environment
+# Environment - generate secret at runtime
 ENV PYTHONUNBUFFERED=1
 ENV SEARXNG_DATA_DIR=/app/searxng-data
 ENV SEARXNG_SETTINGS=/app/searx/settings.yml
+
+# Generate random secret for runtime (overridden by Railway's PORT env)
+RUN SECRET=$(openssl rand -hex 32) && \
+    sed -i "s/atomic-search-secret-change-me-in-production/$SECRET/" /app/searx/settings.yml
 
 RUN mkdir -p /app/searxng-data
 
