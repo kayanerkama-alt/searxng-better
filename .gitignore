@@ -3,3 +3,4 @@ build
 
 # python
 __pycache__/node_modules/
+node_modules/
