@@ -1,6 +1,3 @@
-# Render.com Blueprint for Atomic Search
-# Deploy to: https://render.com
-
 services:
   - type: web
     name: atomic-search
@@ -13,14 +10,6 @@ services:
     envVars:
       - key: NAME
         value: "Atomic Search"
-      - key: SIMPLE_STYLE
-        value: "macchiato"
-      - key: SAFE_SEARCH
-        value: "1"
-      - key: AUTOCOMPLETE
-        value: "google"
-      - key: HTTP_PROTOCOL_VERSION
-        value: "1.1"
       - key: IMAGE_PROXY
         value: "true"
       - key: GRANIAN_HOST
