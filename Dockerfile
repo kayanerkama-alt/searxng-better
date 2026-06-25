@@ -1,10 +1,10 @@
 # Atomic Search - PRODUCTION Dockerfile
-# Rebranded by UCXP Project
-# This WORKS on Railway/Render
+# Privacy-first search engine with Kagi-style features
 
 FROM python:3.12-slim
 
-LABEL maintainer="UCXP Project"
+LABEL maintainer="Atomic Search"
+LABEL description="Privacy-first search engine"
 
 WORKDIR /app
 
@@ -26,29 +26,32 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy source files (templates, static, settings)
 COPY --chown=root:root ./src/ /app/searx/
 
-# Copy themes from out folder to static/themes
+# Copy themes from out folder to static/themes  
 COPY --chown=root:root ./out/themes/simple/* /app/searx/static/themes/simple/
 
-# Copy additional features
-COPY --chown=root:root ./src/search/privacy_features.py /app/searx/search/privacy_features.py
-COPY --chown=root:root ./src/search/ranking_control.py /app/searx/search/ranking_control.py
+# Copy Atomic Search custom features
+COPY --chown=root:root ./src/search/*.py /app/searx/search/
 
-# Patch branding - replace ALL SearXNG with Atomic Search in settings
+# Complete branding replacement
 RUN sed -i 's/"SearXNG"/"Atomic Search"/g' /app/searx/settings.yml && \
-    sed -i 's/instance_name: "Atomic Search"/instance_name: "Atomic Search"/g' /app/searx/settings.yml
+    sed -i 's/SearXNG/Atomic Search/g' /app/searx/settings.yml && \
+    sed -i 's/port: 8888/port: 8000/g' /app/searx/settings.yml
 
 # Set environment
 ENV PYTHONUNBUFFERED=1
 ENV SEARXNG_DATA_DIR=/app/searxng-data
 ENV SEARXNG_SETTINGS=/app/searx/settings.yml
+ENV SEARXNG_PORT=8000
+ENV SEARXNG_BIND_ADDRESS=0.0.0.0
 
 # Create data directory
 RUN mkdir -p /app/searxng-data
 
-EXPOSE 8080
+EXPOSE 8000
 
 # Healthcheck
 HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
-    CMD curl -sf http://localhost:8080/ || exit 1
+    CMD curl -sf http://localhost:8000/ || exit 1
 
-CMD ["python", "-m", "searx.webapp"]
+# Run on port 8000
+CMD ["python", "-m", "searx.webapp", "--port", "8000", "--bind", "0.0.0.0"]

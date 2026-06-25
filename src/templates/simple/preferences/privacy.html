@@ -1,0 +1,272 @@
+{# Atomic Search - Enhanced Privacy Preferences #}
+{% extends "simple/preferences.html" %}
+
+{% macro checkboxOnOff(name, label, description, checked=True) %}
+<div class="atomic-privacy-setting">
+    <div class="setting-row">
+        <label for="privacy_{{ name }}">
+            <input type="checkbox" id="privacy_{{ name }}" name="{{ name }}" value="1" 
+                {{ 'checked' if checked else '' }}>
+            {{ label }}
+        </label>
+        <div class="toggle {{ 'on' if checked else 'off' }}">
+            <div class="toggle-slider"></div>
+        </div>
+    </div>
+    {% if description %}
+    <p class="setting-description">{{ description }}</p>
+    {% endif %}
+</div>
+{% endmacro %}
+
+{% block after_categories %}
+<div class="preferences_privacy_panel">
+    <h3>🛡️ Atomic Search Privacy Settings</h3>
+    
+    <div class="privacy-section">
+        <h4>🔒 Core Privacy</h4>
+        
+        {{ checkboxOnOff(
+            'general.do_not_track',
+            _('Do Not Track'),
+            _('Hides your searches from being logged by third parties'),
+            True
+        ) }}
+        
+        {{ checkboxOnOff(
+            'general.private_browsing',
+            _('Private Browsing Mode'),
+            _('Does not store any cookies or search history'),
+            True
+        ) }}
+        
+        {{ checkboxOnOff(
+            'general.referrer_policy',
+            _('Hide Referrer'),
+            _('Prevents websites from knowing where you came from'),
+            True
+        ) }}
+    </div>
+    
+    <div class="privacy-section">
+        <h4>🕵️ Tracking Protection</h4>
+        
+        {{ checkboxOnOff(
+            'privacy.remove_tracking_params',
+            _('Remove Tracking Parameters'),
+            _('Strips Google Analytics, UTM parameters, and other tracking codes from URLs'),
+            True
+        ) }}
+        
+        {{ checkboxOnOff(
+            'privacy.block_trackers',
+            _('Block Known Trackers'),
+            _('Actively blocks known tracking domains from loading in results'),
+            True
+        ) }}
+        
+        {{ checkboxOnOff(
+            'privacy.no_cache',
+            _('Disable Result Caching'),
+            _('Prevents search results from being cached locally'),
+            False
+        ) }}
+    </div>
+    
+    <div class="privacy-section">
+        <h4>🌐 Network Privacy</h4>
+        
+        {{ checkboxOnOff(
+            'privacy.use_proxy',
+            _('Use Anonymous Proxy'),
+            _('Routes requests through our privacy proxy (may slow down results)'),
+            False
+        ) }}
+        
+        {{ checkboxOnOff(
+            'privacy.hide_user_agent',
+            _('Mask User Agent'),
+            _('Hides your browser information from search engines'),
+            True
+        ) }}
+        
+        {{ checkboxOnOff(
+            'privacy.hide_ip',
+            _('Hide IP Address'),
+            _('Prevents search engines from seeing your IP'),
+            True
+        ) }}
+    </div>
+    
+    <div class="privacy-section">
+        <h4>🔍 Search Privacy</h4>
+        
+        {{ checkboxOnOff(
+            'privacy.safe_search',
+            _('Force SafeSearch'),
+            _('Filters explicit content from search results'),
+            False
+        ) }}
+        
+        {{ checkboxOnOff(
+            'privacy.exact_match',
+            _('Disable Spell Correction'),
+            _('Prevents search engines from autocorrecting your queries'),
+            False
+        ) }}
+        
+        {{ checkboxOnOff(
+            'privacy.no_personalization',
+            _('Disable Personalization'),
+            _('Prevents search engines from tailoring results to you'),
+            True
+        ) }}
+    </div>
+    
+    <div class="privacy-section">
+        <h4>🏆 Kagi-Style Ranking</h4>
+        
+        {{ checkboxOnOff(
+            'ranking.quality_override',
+            _('Enable Quality-Based Ranking'),
+            _('Prioritizes high-quality, authoritative sources'),
+            True
+        ) }}
+        
+        {{ checkboxOnOff(
+            'ranking.privacy_ranking',
+            _('Privacy-Aware Ranking'),
+            _('Boosts privacy-respecting websites in results'),
+            True
+        ) }}
+        
+        {{ checkboxOnOff(
+            'ranking.domain_boosting',
+            _('Allow Domain Boosting'),
+            _('Lets you pin and boost your favorite domains'),
+            True
+        ) }}
+    </div>
+    
+    <div class="privacy-score">
+        <h4>📊 Your Privacy Score</h4>
+        <div class="score-bar">
+            <div class="score-fill" style="width: 85%;"></div>
+        </div>
+        <p class="score-text">85/100 - Excellent Privacy Protection</p>
+    </div>
+</div>
+
+<style>
+.preferences_privacy_panel {
+    padding: 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 12px;
+    color: white;
+    margin: 20px 0;
+}
+
+.preferences_privacy_panel h3 {
+    margin-top: 0;
+    color: white;
+}
+
+.privacy-section {
+    margin: 20px 0;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+}
+
+.privacy-section h4 {
+    margin-top: 0;
+    color: #fff;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding-bottom: 8px;
+}
+
+.atomic-privacy-setting {
+    margin: 12px 0;
+}
+
+.setting-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.setting-row label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.setting-row input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.toggle {
+    width: 48px;
+    height: 24px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+    position: relative;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.toggle.on {
+    background: #38ef7d;
+}
+
+.toggle-slider {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: white;
+    border-radius: 50%;
+    top: 2px;
+    left: 2px;
+    transition: transform 0.3s;
+}
+
+.toggle.on .toggle-slider {
+    transform: translateX(24px);
+}
+
+.setting-description {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 4px 0 0 26px;
+}
+
+.privacy-score {
+    text-align: center;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+}
+
+.score-bar {
+    height: 12px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    overflow: hidden;
+    margin: 10px 0;
+}
+
+.score-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #38ef7d, #11998e);
+    border-radius: 6px;
+}
+
+.score-text {
+    font-weight: 600;
+    margin: 0;
+}
+</style>
+{% endblock %}

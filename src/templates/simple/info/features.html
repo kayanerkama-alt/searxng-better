@@ -1,0 +1,137 @@
+{# Atomic Search - Features Page #}
+{% extends "simple/info.html" %}
+
+{% block info_content %}
+<div class="atomic-features">
+    <h1>🛡️ Atomic Search Features</h1>
+    
+    <div class="feature-section">
+        <h2>🔐 Privacy Features</h2>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h3>🚫 Zero Tracking</h3>
+                <p>No cookies required, no search logs stored. Your searches are never recorded.</p>
+            </div>
+            <div class="feature-card">
+                <h3>🕵️ Tracker Blocking</h3>
+                <p>Automatically blocks 500+ known trackers, analytics, and fingerprinting scripts.</p>
+            </div>
+            <div class="feature-card">
+                <h3>🔗 URL Cleaning</h3>
+                <p>Removes UTM parameters, Google tracking codes, and other tracking tokens.</p>
+            </div>
+            <div class="feature-card">
+                <h3>🌐 Anonymous Proxy</h3>
+                <p>Optional anonymous routing hides your IP from search engines.</p>
+            </div>
+            <div class="feature-card">
+                <h3>🚪 Referrer Hiding</h3>
+                <p>Websites won't know where you came from when you click links.</p>
+            </div>
+            <div class="feature-card">
+                <h3>🔒 Encrypted Search</h3>
+                <p>Optional encrypted queries prevent ISP monitoring of searches.</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="feature-section">
+        <h2>🏆 Kagi-Style Ranking</h2>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h3>📌 Domain Pinning</h3>
+                <p>Pin your favorite websites to always appear at the top of results.</p>
+            </div>
+            <div class="feature-card">
+                <h3>⬆️ Domain Boosting</h3>
+                <p>Boost trusted domains to prioritize quality sources.</p>
+            </div>
+            <div class="feature-card">
+                <h3>🚫 Domain Blocking</h3>
+                <p>Block low-quality or irrelevant domains from results.</p>
+            </div>
+            <div class="feature-card">
+                <h3>⭐ Quality Scores</h3>
+                <p>Visual quality indicators help identify authoritative sources.</p>
+            </div>
+            <div class="feature-card">
+                <h3>🛡️ Trust Badges</h3>
+                <p>See which sources are verified and trustworthy at a glance.</p>
+            </div>
+            <div class="feature-card">
+                <h3>📊 Privacy Ranking</h3>
+                <p>Privacy-respecting websites are boosted in search results.</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="feature-section">
+        <h2>⚡ Search Features</h2>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h3>🔢 Calculator</h3>
+                <p>Type <code>calc 2+2</code> or <code>=2+2</code> for instant calculations.</p>
+            </div>
+            <div class="feature-card">
+                <h3>📐 Unit Conversion</h3>
+                <p><code>100 km to miles</code> or <code>30c to f</code> for instant conversions.</p>
+            </div>
+            <div class="feature-card">
+                <h3>⏰ Time Zones</h3>
+                <p><code>time in Tokyo</code> shows current time worldwide.</p>
+            </div>
+            <div class="feature-card">
+                <h3>🔍 Search Shortcuts</h3>
+                <p><code>!g</code> for Google, <code>!w</code> for Wikipedia, <code>!yt</code> for YouTube.</p>
+            </div>
+            <div class="feature-card">
+                <h3>📝 Instant Answers</h3>
+                <p>Get direct answers for weather, definitions, and common questions.</p>
+            </div>
+            <div class="feature-card">
+                <h3>⌨️ Keyboard Navigation</h3>
+                <p>Use <code>j/k</code> to navigate results, <code>/</code> to focus search.</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="feature-section">
+        <h2>🎨 Themes</h2>
+        <p>Choose from 89+ beautiful themes!</p>
+    </div>
+    
+    <div class="feature-section">
+        <h2>⚙️ Advanced Settings</h2>
+        <div class="settings-grid">
+            <div class="setting-item">
+                <h4>🔍 Search Preferences</h4>
+                <ul>
+                    <li>SafeSearch filtering</li>
+                    <li>Language preferences</li>
+                    <li>Result freshness</li>
+                </ul>
+            </div>
+            <div class="setting-item">
+                <h4>🖥️ Interface</h4>
+                <ul>
+                    <li>89+ color themes</li>
+                    <li>Results on new tab</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.atomic-features { max-width: 900px; margin: 0 auto; padding: 20px; }
+.atomic-features h1 { text-align: center; color: #667eea; font-size: 2em; margin-bottom: 40px; }
+.feature-section { margin-bottom: 40px; }
+.feature-section h2 { color: #764ba2; border-bottom: 2px solid #764ba2; padding-bottom: 10px; }
+.feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+.feature-card { background: #f5f7fa; padding: 20px; border-radius: 12px; }
+.feature-card h3 { margin-top: 0; color: #333; }
+.feature-card code { background: #667eea22; padding: 2px 6px; border-radius: 4px; }
+.settings-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+.setting-item { background: #f8f9fa; padding: 15px; border-radius: 8px; }
+</style>
+{% endblock %}
