@@ -234,12 +234,15 @@ if [ ! -z "${MONERO_ADDRESS}" ]; then
 fi
 
 # Healthcheck endpoint - respond to /healthz
-if [ ! -z "${HEALTHCHECK}" ] || [ "${LIMITER}" = "true" ]; then
-    sed -i '/^@app.route/a\
-@app.route("/healthz")\
-def healthz():\
-    return "OK", 200' searx/webapp.py 2>/dev/null || true
-fi
+# (Already added in Dockerfile, this is fallback)
 
 echo "🚀 Starting Atomic Search..."
-exec /usr/local/searxng/venv/bin/granian searx.privau_wsgi:app
+echo "📍 Listening on: ${GRANIAN_HOST:-0.0.0.0}:${GRANIAN_PORT:-8080}"
+
+# Run granian with explicit parameters
+exec /usr/local/searxng/venv/bin/granian \
+    --host "${GRANIAN_HOST:-0.0.0.0}" \
+    --port "${GRANIAN_PORT:-8080}" \
+    --workers 2 \
+    --threads 4 \
+    searx.privau_wsgi:app

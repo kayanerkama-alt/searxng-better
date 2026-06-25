@@ -1,13 +1,14 @@
 [railway]
   variableGroup = "atomic-search"
-  startupCommand = "bash /usr/local/bin/run.sh"
+
+[atomic-search]
+  dockerfile = "Dockerfile"
 
 [atomic-search.variables]
   NAME = "Atomic Search"
   GRANIAN_HOST = "0.0.0.0"
   GRANIAN_PORT = "8080"
   SIMPLE_STYLE = "macchiato"
-  DEFAULT_THEME = "macchiato"
   SAFE_SEARCH = "1"
   AUTOCOMPLETE = "google"
   HTTP_PROTOCOL_VERSION = "1.1"
