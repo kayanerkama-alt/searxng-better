@@ -34,7 +34,7 @@ COPY --chown=root:root ./src/search/ranking_control.py /app/searx/search/ranking
 COPY --chown=root:root ./out/themes/ /app/searx/static/themes/simple/
 
 # Patch branding - replace ALL SearXNG with Atomic Search
-RUN sed -i 's/instance_name:.*SearXNG/instance_name: "Atomic Search"/g' /app/searx/settings.yml && \
+RUN sed -i 's/"SearXNG"/"Atomic Search"/g' /app/searx/settings.yml && \
     sed -i 's/SearXNG/Atomic Search/g' /app/searx/infopage/*/about.md && \
     sed -i 's/SearXNG/Atomic Search/g' /app/searx/templates/simple/info/en/about.md && \
     sed -i 's/SearXNG/Atomic Search/g' /app/searx/templates/simple/base.html && \

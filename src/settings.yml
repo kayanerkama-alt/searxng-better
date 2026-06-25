@@ -16,6 +16,7 @@ brand:
   wiki_url: https://github.com/searxng/searxng/wiki
   issue_url: https://github.com/searxng/searxng/issues
   new_issue_url: https://github.com/searxng/searxng/issues/new
+  git_url: https://github.com/privau/searxng
 
 search:
   safe_search: 0
@@ -40,38 +41,3 @@ server:
   http_protocol_version: "1.1"
 
 use_default_settings: false
-
-engines:
-  - name: google
-    shortcut: g
-    disabled: false
-  - name: bing
-    shortcut: b
-    disabled: false
-  - name: duckduckgo
-    shortcut: ddg
-    disabled: false
-  - name: wikipedia
-    shortcut: w
-    disabled: false
-  - name: github
-    shortcut: gh
-    disabled: false
-  - name: youtube
-    shortcut: yt
-    disabled: false
-  - name: reddit
-    shortcut: r
-    disabled: false
-  - name: stackoverflow
-    shortcut: so
-    disabled: false
-  - name: google images
-    shortcut: gi
-    disabled: false
-  - name: google news
-    shortcut: gn
-    disabled: false
-  - name: wikipedia
-    shortcut: wiki
-    disabled: false
