@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libffi-dev libssl-dev curl ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
-# Clone SearXNG
+# Clone SearXNG (this creates /app/searx/ as the package)
 ARG SEARXNG_COMMIT=e3126b89e69d1a56488f54f27928581a897cb058
 RUN git clone --depth 1 https://github.com/searxng/searxng.git . && \
     git fetch --depth 1 origin ${SEARXNG_COMMIT} && \
@@ -18,24 +18,44 @@ RUN git clone --depth 1 https://github.com/searxng/searxng.git . && \
 # Install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy source files
-COPY --chown=root:root ./src/ /app/searx/
-COPY --chown=root:root ./out/ /app/searx/static/themes/simple/
-COPY --chown=root:root ./src/search/*.py /app/searx/search/ 2>/dev/null || true
+# Copy our custom source files INTO SearXNG structure
+COPY ./src/templates/ ./searx/templates/
+COPY ./src/static/ ./searx/static/
+COPY ./src/settings.yml ./searx/settings.yml
+COPY ./src/js/ ./searx/js/
+COPY ./src/less/ ./searx/less/
+COPY ./src/favicons.toml ./searx/favicons.toml
 
-# Branding
-RUN sed -i 's/"SearXNG"/"Atomic Search"/g' /app/searx/settings.yml 2>/dev/null || true && \
-    sed -i 's/SearXNG/Atomic Search/g' /app/searx/settings.yml 2>/dev/null || true
+# Copy compiled CSS/JS to SearXNG static themes folder
+COPY ./out/img/ ./searx/static/themes/simple/img/
+COPY ./out/chunk/ ./searx/static/themes/simple/chunk/
+COPY ./out/*.css ./searx/static/themes/simple/
+COPY ./out/*.js ./searx/static/themes/simple/
+COPY ./out/manifest.json ./searx/static/themes/simple/
 
-# Environment - Railway provides PORT, default to 8888
+# Copy search plugins (individual files to avoid glob issues)
+RUN if [ -d ./src/search ]; then \
+      for f in ./src/search/*.py; do \
+        [ -f "$f" ] && cp "$f" ./searx/search/; \
+      done \
+    fi || true
+
+# Branding replacement in settings
+RUN sed -i 's/"SearXNG"/"Atomic Search"/g' ./searx/settings.yml && \
+    sed -i 's/SearXNG/Atomic Search/g' ./searx/settings.yml
+
+# Environment - generate secret at runtime
 ENV PYTHONUNBUFFERED=1
 ENV SEARXNG_DATA_DIR=/app/searxng-data
 ENV SEARXNG_SETTINGS=/app/searx/settings.yml
-ENV PORT=8888
+
+# Generate random secret for runtime (overridden by Railway's PORT env)
+RUN SECRET=$(openssl rand -hex 32) && \
+    sed -i "s/atomic-search-secret-change-me-in-production/$SECRET/" /app/searx/settings.yml
 
 RUN mkdir -p /app/searxng-data
 
 EXPOSE 8888
 
-# Run - use Railway's PORT if set, otherwise 8888
-CMD ["sh", "-c", "python -m searx.webapp --bind 0.0.0.0 --port ${PORT:-8888}"]
+# Run SearXNG on port 8888
+CMD ["python", "-m", "searx.webapp", "--bind", "0.0.0.0", "--port", "8888"]

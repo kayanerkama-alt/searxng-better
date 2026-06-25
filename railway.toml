@@ -6,10 +6,6 @@
 
 [atomic-search.healthcheck]
   path = "/"
-  port = 8888
   intervalSeconds = 30
   timeoutSeconds = 10
   startPeriodSeconds = 120
-
-[atomic-search.variables]
-  PORT = "8888"
