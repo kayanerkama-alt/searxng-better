@@ -8,6 +8,16 @@
                 {{- name | capitalize -}}
         </option>
       {%- endfor -%}
+      <option value="dracula">Dracula</option>
+      <option value="nord">Nord</option>
+      <option value="cyberpunk">Cyberpunk</option>
+      <option value="kagi">Kagi</option>
+      <option value="synthwave">Synthwave</option>
+      <option value="midnight">Midnight</option>
+      <option value="neon">Neon</option>
+      <option value="aurora">Aurora</option>
+      <option value="matrix">Matrix</option>
+      <option value="arctic">Arctic</option>
     </select>{{- '' -}}
   </div>{{- '' -}}
   <div class="description">
@@ -19,7 +29,7 @@
   <legend id="pref_simple_style">{{- _('Theme style') -}}</legend>{{- '' -}}
   <div class="value">{{- '' -}}
     <select name="simple_style" aria-labelledby="pref_simple_style">
-      {%- for name in ['auto', 'light', 'dark', 'black'] -%}
+      {%- for name in ['auto', 'light', 'dark', 'black', 'dracula', 'nord', 'cyberpunk', 'kagi', 'synthwave', 'midnight', 'neon', 'aurora', 'matrix', 'arctic', 'arctic-blue', 'amber', 'brave', 'bubblegum', 'chocolate', 'cobalt', 'forest', 'garden', 'grape', 'hacker', 'horizon', 'lavender', 'monokai', 'nord-frost', 'ocean', 'olive', 'peach', 'raspberry', 'rose', 'ruby', 'sakura', 'slate', 'solarized', 'tokyo-night', 'twilight', 'violet', 'winter'] -%}
         <option value="{{ name }}"
                 {%- if name == preferences.get_value('simple_style') %} selected="selected" {%- endif -%}>
                 {{- _(name) | capitalize -}}

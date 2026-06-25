@@ -205,6 +205,26 @@ G3t 0wn3d!1!""",
             response_type="ascii",
             rarity=0.1
         ),
+        EasterEgg(
+            trigger="give me a recipe",
+            response="""🍳 Here's a random recipe for you!\n\n📋 Classic Pancakes\n\nIngredients:\n• 1 ½ cups all-purpose flour\n• 3 ½ tsp baking powder\n• 1 tbsp sugar\n• ¼ tsp salt\n• 1 ¼ cups milk\n• 1 egg\n• 3 tbsp melted butter\n\nInstructions:\n1. Mix dry ingredients in a large bowl\n2. Make a well, add milk, egg, and butter\n3. Mix until smooth\n4. Heat a griddle over medium-high heat\n5. Pour batter, flip when bubbles form\n6. Serve with maple syrup! 🥞\n\nSearch "pancake recipe" for more variations!""",
+            response_type="text",
+            rarity=1.0,
+            requires_exact=True
+        ),
+        EasterEgg(
+            trigger="surprise me",
+            response="🎲 Random surprise!\n\n{}",
+            response_type="text",
+            rarity=1.0
+        ),
+        EasterEgg(
+            trigger="what can you do",
+            response="""🤖 Atomic Search - Special Commands:\n\n🍳 \"give me a recipe\" - Get a random recipe!\n🎲 \"surprise me\" - Random fun response\n🎯 \"rps\" - Rock Paper Scissors\n🔮 \"magic 8 ball\" - Fortune telling\n🎲 \"roll dice\" - Roll dice\n🪙 \"flip coin\" - Flip a coin\n😂 \"joke\" - Hear a joke\n📚 \"fact\" - Learn something new\n💬 \"quote\" - Get an inspiring quote\n☕ Type \"coffee\" for a coffee break!\n\nSearch for anything and I'll help you find it!""",
+            response_type="text",
+            rarity=1.0,
+            requires_exact=True
+        ),
     ]
     
     # Data for random responses
@@ -272,6 +292,68 @@ G3t 0wn3d!1!""",
         ("Talk is cheap. Show me the code.", "Linus Torvalds"),
         ("First, solve the problem. Then, write the code.", "John Johnson"),
         ("Code is like humor. When you have to explain it, it's bad.", "Cory House"),
+    ]
+
+    RECIPES = [
+        """📋 Classic Pancakes
+
+Ingredients:\n• 1 ½ cups all-purpose flour\n• 3 ½ tsp baking powder\n• 1 tbsp sugar\n• ¼ tsp salt\n• 1 ¼ cups milk\n• 1 egg\n• 3 tbsp melted butter
+
+Instructions:\n1. Mix dry ingredients\n2. Add wet ingredients and mix until smooth\n3. Cook on hot griddle until golden""",
+
+        """📋 Quick Pasta Aglio e Olio
+
+Ingredients:\n• 400g spaghetti\n• 6 cloves garlic, sliced\n• ½ cup olive oil\n• Red pepper flakes\n• Fresh parsley\n• Parmesan cheese
+
+Instructions:\n1. Cook pasta al dente\n2. Sauté garlic in olive oil until golden\n3. Toss with pasta, add pepper flakes\n4. Top with parsley and cheese""",
+
+        """📋 5-Minute Guacamole
+
+Ingredients:\n• 3 ripe avocados\n• 1 lime, juiced\n• ½ tsp salt\n• ½ cup diced onion\n• 3 tbsp cilantro\n• 2 roma tomatoes, diced\n• 1 tsp minced garlic
+
+Instructions:\n1. Mash avocados in bowl\n2. Stir in remaining ingredients\n3. Season to taste\n4. Serve with tortilla chips!""",
+
+        """📋 Chocolate Chip Cookies
+
+Ingredients:\n• 2 ¼ cups flour\n• 1 cup butter, softened\n• ¾ cup sugar\n• ¾ cup brown sugar\n• 2 eggs\n• 1 tsp vanilla\n• 2 cups chocolate chips
+
+Instructions:\n1. Cream butter and sugars\n2. Beat in eggs and vanilla\n3. Mix in flour, then chips\n4. Bake at 375°F for 9-11 minutes""",
+
+        """📋 Classic Omelette
+
+Ingredients:\n• 3 eggs\n• 1 tbsp butter\n• 2 tbsp cheese (any kind)\n• Salt and pepper\n• Optional: veggies, ham
+
+Instructions:\n1. Beat eggs with salt and pepper\n2. Melt butter in pan over medium heat\n3. Pour eggs, add fillings\n4. Fold and serve immediately!""",
+
+        """📋 Greek Salad
+
+Ingredients:\n• 4 tomatoes, chunked\n• 1 cucumber, chunked\n• 1 red onion, sliced\n• ½ cup kalamata olives\n• 200g feta cheese\n• Olive oil and oregano dressing
+
+Instructions:\n1. Combine vegetables in bowl\n2. Add olives and feta\n3. Drizzle with olive oil\n4. Sprinkle oregano and serve""",
+
+        """📋 Banana Smoothie
+
+Ingredients:\n• 2 ripe bananas\n• 1 cup milk\n• ½ cup yogurt\n• 2 tbsp honey\n• ½ tsp vanilla
+
+Instructions:\n1. Add all ingredients to blender\n2. Blend until smooth\n3. Pour and enjoy!""",
+
+        """📋 Grilled Cheese Sandwich
+
+Ingredients:\n• 2 slices bread\n• 2 slices cheese\n• 2 tbsp butter
+
+Instructions:\n1. Butter one side of each bread slice\n2. Place cheese between unbuttered sides\n3. Grill on medium until golden\n4. Flip and grill other side""",
+
+        """📋 Bruschetta
+
+Ingredients:\n• 1 baguette, sliced\n• 4 tomatoes, diced\n• 3 cloves garlic\n• Fresh basil\n• Olive oil\n• Balsamic glaze
+
+Instructions:\n1. Toast baguette slices\n2. Rub with garlic\n3. Top with tomatoes and basil\n4. Drizzle with olive oil and balsamic""",
+
+        """📋 Chicken Stir Fry
+
+Ingredients:\n• 500g chicken breast\n• 2 cups mixed vegetables\n• 3 tbsp soy sauce\n• 1 tbsp sesame oil\n• Ginger and garlic
+
+Instructions:\n1. Cut chicken into strips\n2. Stir fry chicken until cooked\n3. Add vegetables and sauce\n4. Serve over rice""",
     ]
     
     def __init__(self):
@@ -349,6 +431,15 @@ G3t 0wn3d!1!""",
                 latency = random.randint(5, 150)
                 response = response.replace("{}", str(latency))
         
+            elif "surprise" in egg.trigger:
+                responses = [
+                    random.choice(self.FORTUNES),
+                    random.choice(self.JOKES),
+                    random.choice(self.FACTS),
+                    f"🍳 {random.choice(self.RECIPES)}",
+                ]
+                response = response.replace("{}", random.choice(responses))
+
         return response
     
     def get_stats(self) -> Dict[str, Any]:

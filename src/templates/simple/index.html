@@ -1,8 +1,62 @@
 {% extends "simple/base.html" %}
 {% from 'simple/icons.html' import icon_big %}
+{% block head %}
+{{ super() }}
+<style id="atomic-styles">
+html body.index_endpoint {
+    background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%) !important;
+    min-height: 100vh;
+}
+html body.index_endpoint .index {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-height: calc(100vh - 100px) !important;
+    padding: 20px !important;
+}
+html body.index_endpoint .index-logo {
+    width: 180px !important;
+    height: 180px !important;
+    animation: logoFloat 3s ease-in-out infinite !important;
+    filter: drop-shadow(0 0 30px rgba(102, 126, 234, 0.5)) !important;
+}
+@keyframes logoFloat {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+}
+html body.index_endpoint #search {
+    background: rgba(255,255,255,0.1) !important;
+    border-radius: 50px !important;
+    padding: 8px 20px !important;
+    backdrop-filter: blur(10px) !important;
+    border: 1px solid rgba(255,255,255,0.2) !important;
+    max-width: 600px !important;
+    width: 100% !important;
+}
+html body.index_endpoint #search input {
+    background: transparent !important;
+    color: white !important;
+    font-size: 18px !important;
+}
+html body.index_endpoint #search button {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    border: none !important;
+    border-radius: 30px !important;
+    color: white !important;
+    padding: 10px 25px !important;
+}
+html body.index_endpoint footer {
+    background: rgba(0,0,0,0.3) !important;
+    color: rgba(255,255,255,0.7) !important;
+    padding: 20px !important;
+}
+html body.index_endpoint footer a { color: #667eea !important; }
+</style>
+{% endblock %}
 {% block content %}
 <div class="index">
-    <div class="title"><img src="{{ url_for('static', filename='img/atomic-logo.svg') }}" alt="{{ instance_name }}" class="index-logo"></div>
+    <div class="title"><img src="{{ url_for('static', filename='atomic-logo.svg') }}" alt="{{ instance_name }}" class="index-logo"></div>
     {% include 'simple/simple_search.html' %}
 </div>
 {% endblock %}

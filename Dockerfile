@@ -26,12 +26,15 @@ COPY ./src/js/ ./searx/js/
 COPY ./src/less/ ./searx/less/
 COPY ./src/favicons.toml ./searx/favicons.toml
 
-# Copy compiled CSS/JS to SearXNG static themes folder
+# Copy compiled CSS/JS/themes to SearXNG static themes folder
+COPY ./src/static/themes/ ./searx/static/themes/
+COPY ./src/static/atomic-home.css ./searx/static/themes/simple/
+COPY ./src/static/img/ ./searx/static/themes/simple/img/
 COPY ./out/img/ ./searx/static/themes/simple/img/
 COPY ./out/chunk/ ./searx/static/themes/simple/chunk/
-COPY ./out/*.css ./searx/static/themes/simple/
-COPY ./out/*.js ./searx/static/themes/simple/
-COPY ./out/manifest.json ./searx/static/themes/simple/
+
+# Copy atomic-logo.svg to root static for easy access
+RUN cp ./searx/static/themes/simple/img/atomic-logo.svg ./searx/static/atomic-logo.svg 2>/dev/null || true
 
 # Copy search plugins (individual files to avoid glob issues)
 RUN if [ -d ./src/search ]; then \
