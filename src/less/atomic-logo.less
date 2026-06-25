@@ -1,0 +1,182 @@
+/* Atomic Search Animated Logo Styles */
+@import (inline) "../img/atomic.svg" as atomic-svg;
+
+/* Keyframe animations for the atomic logo */
+@keyframes atomic-orbit {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes atomic-orbit-reverse {
+  0% { transform: rotate(360deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes atomic-pulse {
+  0%, 100% { 
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% { 
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+}
+
+@keyframes atomic-electron {
+  0% { 
+    transform: rotate(0deg) translateX(12px) rotate(0deg);
+  }
+  100% { 
+    transform: rotate(360deg) translateX(12px) rotate(-360deg);
+  }
+}
+
+@keyframes atomic-electron-2 {
+  0% { 
+    transform: rotate(120deg) translateX(12px) rotate(-120deg);
+  }
+  100% { 
+    transform: rotate(480deg) translateX(12px) rotate(-480deg);
+  }
+}
+
+@keyframes atomic-electron-3 {
+  0% { 
+    transform: rotate(240deg) translateX(12px) rotate(-240deg);
+  }
+  100% { 
+    transform: rotate(600deg) translateX(12px) rotate(-600deg);
+  }
+}
+
+@keyframes atomic-glow {
+  0%, 100% { 
+    filter: drop-shadow(0 0 2px var(--color-logo-primary, #6366f1));
+  }
+  50% { 
+    filter: drop-shadow(0 0 6px var(--color-logo-primary, #6366f1));
+  }
+}
+
+@keyframes atomic-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+/* Atomic logo container */
+.atomic-logo {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .nucleus {
+    animation: atomic-pulse 2s ease-in-out infinite;
+  }
+  
+  .orbit {
+    transform-origin: center;
+  }
+  
+  .orbit-1 {
+    animation: atomic-orbit 8s linear infinite;
+  }
+  
+  .orbit-2 {
+    animation: atomic-orbit 10s linear infinite reverse;
+  }
+  
+  .orbit-3 {
+    animation: atomic-orbit 12s linear infinite;
+  }
+  
+  .electron {
+    animation: atomic-glow 2s ease-in-out infinite;
+  }
+  
+  .electron-1 {
+    animation: atomic-electron 4s linear infinite;
+  }
+  
+  .electron-2 {
+    animation: atomic-electron-2 5s linear infinite;
+  }
+  
+  .electron-3 {
+    animation: atomic-electron-3 6s linear infinite;
+  }
+  
+  &:hover {
+    .nucleus {
+      animation-duration: 1s;
+    }
+    
+    .orbit-1 {
+      animation-duration: 4s;
+    }
+    
+    .orbit-2 {
+      animation-duration: 5s;
+    }
+    
+    .orbit-3 {
+      animation-duration: 6s;
+    }
+  }
+}
+
+/* Larger logo variant */
+.atomic-logo-large {
+  width: 80px;
+  height: 80px;
+  
+  .electron-1 {
+    animation-duration: 3s;
+  }
+  
+  .electron-2 {
+    animation-duration: 4s;
+  }
+  
+  .electron-3 {
+    animation-duration: 5s;
+  }
+}
+
+/* Logo with text */
+.atomic-logo-with-text {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  
+  .atomic-logo {
+    animation: atomic-float 3s ease-in-out infinite;
+  }
+  
+  .logo-text {
+    font-weight: 700;
+    font-size: 1.2rem;
+    background: linear-gradient(135deg, var(--color-logo-primary, #6366f1), var(--color-logo-secondary, #06b6d4));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
+
+/* Color variables for logo */
+:root {
+  --color-logo-primary: #6366f1;
+  --color-logo-secondary: #06b6d4;
+  --color-logo-accent: #8b5cf6;
+  --color-logo-electron-1: #6366f1;
+  --color-logo-electron-2: #8b5cf6;
+  --color-logo-electron-3: #06b6d4;
+}
