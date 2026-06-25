@@ -18,7 +18,7 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='sxng-ltr.min.css') }}" type="text/css" media="screen">
   {% endif %}
   <!-- Atomic Search Custom Styles -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='themes/simple/atomic-home.css') }}" type="text/css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='atomic-home.css') }}" type="text/css">
   {% if get_setting('server.limiter') or get_setting('server.public_instance') %}
   <link rel="stylesheet" href="{{ url_for('client_token', token=link_token) }}" type="text/css">
   {% endif %}
