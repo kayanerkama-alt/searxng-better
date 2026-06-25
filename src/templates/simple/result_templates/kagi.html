@@ -1,0 +1,192 @@
+{# Atomic Search - Kagi-style Results Template #}
+{# Enhanced result display with quality scores and privacy badges #}
+
+{% extends "simple/result_templates/default.html" %}
+
+{% block result %}
+<article class="result result-default category-{{ result.category|default('general') }}
+    {% if result.parsed_url %}
+        domain-{{ result.parsed_url.netloc|replace(".", "-") }}
+    {% endif %}
+" data-url="{{ result.url }}" data-score="{{ result.score|default(0) }}">
+    <div class="result-header">
+        {% if result.engine_attrs.icon %}
+            <img src="{{ result.engine_attrs.icon }}" alt="" class="engine-icon">
+        {% endif %}
+        <div class="result-meta">
+            <span class="result-engine">{{ result.engine|replace("_", " ")|title }}</span>
+            {% if result.privacy_score %}
+                <span class="atomic-privacy-indicator" title="Privacy Score: {{ result.privacy_score }}/100">
+                    🛡️ {{ result.privacy_score }}
+                </span>
+            {% endif %}
+        </div>
+        {% if result.trust_badge %}
+            <span class="result-trust-badge {{ result.trust_badge|lower|replace(' ', '-') }}">
+                {{ result.trust_badge }}
+            </span>
+        {% endif %}
+    </div>
+    
+    <h3>
+        <a href="{{ result.url }}" rel="noreferrer">
+            {{- result.title|safe -}}
+        </a>
+        {% if result.quality_score %}
+            <span class="quality-score quality-{{ result.quality_score|int // 25 }}">
+                {{ result.quality_score|int }}
+            </span>
+        {% endif %}
+    </h3>
+    
+    {% if result.img_src %}
+        <div class="result-image">
+            <img src="{{ result.img_src }}" alt="{{ result.title }}">
+        </div>
+    {% endif %}
+    
+    <p class="content">
+        {% if result.content %}
+            {{ result.content|striptags|truncate(300) }}
+        {% endif %}
+    </p>
+    
+    <div class="result-footer">
+        <div class="result-url">
+            <span class="url_o1">
+                {% if result.parsed_url %}
+                    <span class="url_i1">{{ result.parsed_url.netloc }}</span>
+                {% endif %}
+            </span>
+            {% if result.parsed_url and result.parsed_url.path != '/' %}
+                <span class="url_o2">
+                    <span class="url_i2">{{ result.parsed_url.path|truncate(50, killwords=True) }}</span>
+                </span>
+            {% endif %}
+        </div>
+        
+        {% if result.pubdate %}
+            <span class="result-date">{{ result.pubdate }}</span>
+        {% endif %}
+    </div>
+    
+    {% if result.doi %}
+        <div class="result-doi">
+            <span>DOI: </span><a href="{{ result.doi }}" rel="noreferrer">{{ result.doi }}</a>
+        </div>
+    {% endif %}
+    
+    <div class="result-actions">
+        <button class="result-action" data-action="pin" title="Pin this result">
+            📌
+        </button>
+        <button class="result-action" data-action="boost" title="Boost this domain">
+            ⬆️
+        </button>
+        <button class="result-action" data-action="block" title="Block this domain">
+            🚫
+        </button>
+    </div>
+</article>
+{% endblock %}
+
+{% block styles %}
+{{ super() }}
+<style>
+    .result {
+        position: relative;
+    }
+    
+    .result-header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 8px;
+    }
+    
+    .engine-icon {
+        width: 16px;
+        height: 16px;
+    }
+    
+    .result-meta {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 11px;
+        color: #666;
+    }
+    
+    .result-trust-badge {
+        font-size: 10px;
+        padding: 2px 6px;
+        border-radius: 4px;
+        margin-left: auto;
+    }
+    
+    .result-trust-badge.🟢-trusted { background: #11998e; color: white; }
+    .result-trust-badge.🟡-moderate { background: #f9ca24; color: #1a1a2e; }
+    .result-trust-badge.🟠-low-risk { background: #ff6b6b; color: white; }
+    .result-trust-badge.🔴-high-tracking { background: #c00; color: white; }
+    
+    .quality-score {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        font-size: 12px;
+        font-weight: 700;
+        margin-left: 8px;
+    }
+    
+    .quality-0 { background: #11998e; color: white; }
+    .quality-1 { background: #38ef7d; color: #1a1a2e; }
+    .quality-2 { background: #f9ca24; color: #1a1a2e; }
+    .quality-3 { background: #ff6b6b; color: white; }
+    
+    .result-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 8px;
+    }
+    
+    .result-date {
+        font-size: 11px;
+        color: #888;
+    }
+    
+    .result-doi {
+        font-size: 11px;
+        margin-top: 4px;
+        color: #666;
+    }
+    
+    .result-actions {
+        display: flex;
+        gap: 4px;
+        margin-top: 8px;
+        opacity: 0;
+        transition: opacity 0.2s;
+    }
+    
+    .result:hover .result-actions {
+        opacity: 1;
+    }
+    
+    .result-action {
+        padding: 4px 8px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        background: white;
+        cursor: pointer;
+        font-size: 12px;
+    }
+    
+    .result-action:hover {
+        background: #f5f5f5;
+    }
+</style>
+{% endblock %}

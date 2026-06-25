@@ -1,0 +1,104 @@
+{# Atomic Search - Custom Homepage Template #}
+{% extends "simple/base.html" %}
+
+{%- block head %}
+{{- super() }}
+<link rel="stylesheet" href="/static/atomic-home.css">
+{%- endblock %}
+
+{%- block content %}
+<div class="atomic-bg">
+    <div class="atomic-particles">
+        <div class="particle" style="left: 10%; animation-delay: 0s;"></div>
+        <div class="particle" style="left: 20%; animation-delay: 2s;"></div>
+        <div class="particle" style="left: 30%; animation-delay: 4s;"></div>
+        <div class="particle" style="left: 40%; animation-delay: 1s;"></div>
+        <div class="particle" style="left: 50%; animation-delay: 3s;"></div>
+        <div class="particle" style="left: 60%; animation-delay: 5s;"></div>
+        <div class="particle" style="left: 70%; animation-delay: 2.5s;"></div>
+        <div class="particle" style="left: 80%; animation-delay: 1.5s;"></div>
+        <div class="particle" style="left: 90%; animation-delay: 4.5s;"></div>
+    </div>
+</div>
+
+<main class="atomic-main">
+    <div class="atomic-logo-section">
+        <img src="/static/img/atomic-logo.svg" alt="Atomic Search" class="atomic-logo" onerror="this.style.display='none'">
+        <h1>Atomic Search</h1>
+        <p class="atomic-tagline">Privacy-first search with Kagi-style features</p>
+    </div>
+
+    <div class="atomic-search-container">
+        <div class="atomic-search-box">
+            <form method="POST" action="/search" class="atomic-search-form" role="search">
+                <span class="atomic-search-icon">🔍</span>
+                <input type="text" name="q" id="q" class="atomic-search-input" 
+                       placeholder="Search the web privately..." autocomplete="off" 
+                       autocapitalize="none" spellcheck="false" autofocus>
+                <button type="submit" class="atomic-search-btn">Search</button>
+                <input type="hidden" name="category_general" value="1">
+                <input type="hidden" name="language" value="auto">
+            </form>
+        </div>
+        
+        <div class="atomic-quick-links">
+            <a href="/preferences" class="atomic-quick-link">
+                <span class="atomic-quick-link-icon">⚙️</span>
+                Preferences
+            </a>
+            <a href="/info/en/about" class="atomic-quick-link">
+                <span class="atomic-quick-link-icon">ℹ️</span>
+                About
+            </a>
+            <a href="/info/en/features" class="atomic-quick-link">
+                <span class="atomic-quick-link-icon">✨</span>
+                Features
+            </a>
+        </div>
+    </div>
+
+    <div class="atomic-privacy-badge">
+        <span class="atomic-privacy-badge-icon">🛡️</span>
+        <span>Zero tracking • No cookies • Encrypted queries</span>
+    </div>
+
+    <div class="atomic-features-preview">
+        <div class="atomic-feature-card">
+            <div class="atomic-feature-icon">🔒</div>
+            <div class="atomic-feature-title">Privacy First</div>
+            <div class="atomic-feature-desc">No tracking, no logs, no cookies required</div>
+        </div>
+        <div class="atomic-feature-card">
+            <div class="atomic-feature-icon">🏆</div>
+            <div class="atomic-feature-title">Kagi Ranking</div>
+            <div class="atomic-feature-desc">Pin, boost, or block any domain</div>
+        </div>
+        <div class="atomic-feature-card">
+            <div class="atomic-feature-icon">⚡</div>
+            <div class="atomic-feature-title">Instant Answers</div>
+            <div class="atomic-feature-desc">Calculator, conversions, weather</div>
+        </div>
+        <div class="atomic-feature-card">
+            <div class="atomic-feature-icon">🎨</div>
+            <div class="atomic-feature-title">89+ Themes</div>
+            <div class="atomic-feature-desc">Dark, light, and colorful themes</div>
+        </div>
+    </div>
+
+    <div class="atomic-shortcuts">
+        <div class="atomic-shortcuts-title">Keyboard Shortcuts</div>
+        <div class="atomic-shortcut-list">
+            <div class="atomic-shortcut"><kbd>j</kbd> / <kbd>k</kbd> Navigate</div>
+            <div class="atomic-shortcut"><kbd>/</kbd> Focus search</div>
+            <div class="atomic-shortcut"><kbd>!</kbd> Engine shortcuts</div>
+        </div>
+    </div>
+
+    <footer class="atomic-footer">
+        <p>
+            Powered by <a href="https://github.com/kayanerkama-alt/searxng-better">Atomic Search</a> 
+            — {{ searxng_version }}
+        </p>
+    </footer>
+</main>
+{%- endblock %}

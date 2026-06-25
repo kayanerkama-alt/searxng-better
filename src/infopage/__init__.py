@@ -142,6 +142,8 @@ class InfoPageSet:  # pylint: disable=too-few-public-methods
         self.toc: list[str] = [
             'search-syntax',
             'about',
+            'privacy',
+            'features',
             'donate',
         ]
         """list of articles in the online documentation"""
