@@ -2,36 +2,89 @@
 {% block content %}
 
 <div class="box">
-  <img src="../favicon.ico" class="mainpicture" draggable="false">
-  <h1>PRIVACY POLICY</h1>
+  <img src="../img/atomic-icon.svg" class="mainpicture" draggable="false" alt="Atomic Search Logo">
+  <h1>🔐 ATOMIC SEARCH PRIVACY POLICY</h1>
   <h6>
-    Your privacy is important to us. This policy explains how we handle your information.
+    Your privacy is our atomic priority. This policy explains how we protect your data.
   </h6>
-  <h2>1. Logging Policy</h2>
+  
+  <h2>1. 🔒 Zero Logging Policy</h2>
   <p>
-    We <b>never log</b> your search queries, user agent information, or your unmasked IP address. <br>
-    We do use the <b>inbuilt SearXNG rate limiter</b>, which keeps a <b>SHA256 hash of a salted IP address</b> for a max period of <b>10 minutes</b>, solely for operational purposes. You can review the source of the rate limiter on <a class="link" href="https://github.com/searxng/searxng/blob/master/searx/botdetection/ip_limit.py">GitHub</a>.
+    <b>We NEVER log</b> your search queries, user agent information, or your unmasked IP address.
+    Search requests are processed and immediately discarded - no traces left behind.
+    <br><br>
+    We use the <b>built-in SearXNG rate limiter</b>, which keeps a <b>SHA256 hash of a salted IP address</b> for a maximum of <b>10 minutes</b>, solely for operational purposes. You can review the rate limiter source on <a class="link" href="https://github.com/searxng/searxng/blob/master/searx/botdetection/ip_limit.py">GitHub</a>.
   </p>
-  <h2>2. Cookies and Local Storage</h2>
+  
+  <h2>2. 🍪 Cookies & Local Storage</h2>
   <p>
-    We use <b>cookies</b> only to improve your experience, like saving your preferences. We will <b>never</b> use these to track you and we'll <b>never</b> use third-party cookies. You can see your saved cookies in <a class="link" href="/preferences">Preferences</a>. <br>
+    We use <b>minimal cookies</b> only to save your preferences (theme, language, etc.). 
+    These cookies are <b>never used for tracking</b> and we <b>never use third-party cookies</b>.
+    <br><br>
+    Your saved preferences are visible in <a class="link" href="/preferences">Preferences</a>. 
+    You can clear all preferences at any time.
   </p>
-  <h2>3. TLS Termination</h2>
+  
+  <h2>3. 🛡️ Security & TLS</h2>
   <p>
-    We <b>always</b> handle TLS termination ourselves and <b>never</b> use third-party services, such as Cloudflare, AWS CloudFront, Lambda, etc. This way, your search queries are <b>encrypted</b> from your browser to our servers. <br>
-    We utilise our <b>own network</b> of global servers to provide you with the best possible experience.
+    We <b>always handle TLS termination ourselves</b> and <b>never use third-party services</b> 
+    like Cloudflare, AWS CloudFront, or Lambda. Your search queries are <b>encrypted end-to-end</b> 
+    from your browser to our servers.
+    <br><br>
+    We utilize our <b>own global server network</b> to minimize exposure points and provide 
+    the best possible privacy protection.
   </p>
-  <h2>4. Changes to Privacy Policy</h2>
+  
+  <h2>4. 🌐 Search Engine Privacy</h2>
   <p>
-    We may <b>update</b> this Privacy Policy at any time. Any changes will be <b>prominently posted</b> on this page, and it's up to you to <b>check for updates</b> on a regular basis. <br>
+    When you search through Atomic Search, your query is distributed to multiple search engines 
+    <b>simultaneously</b>. This means:
+    <br><br>
+    • No single engine sees your full search history
+    <br>
+    • Queries are <b>not linked</b> to your identity
+    <br>
+    • Optional <b>image proxy</b> prevents direct contact between you and image hosts
   </p>
-  <h2>5. Contact Us</h2>
+  
+  <h2>5. 🚫 What We DON'T Do</h2>
   <p>
-    If you have any questions or concerns regarding data protection, please contact Brock Vojkovic at <a href="https://vojk.au">vojk.au</a><br>
+    • We <b>don't</b> create user profiles
+    <br>
+    • We <b>don't</b> sell or share your data
+    <br>
+    • We <b>don't</b> track you across the web
+    <br>
+    • We <b>don't</b> log browsing patterns
+    <br>
+    • We <b>don't</b> use analytics that track users
   </p>
-  <h2>6. Effective Date</h2>
+  
+  <h2>6. 🔧 Data Portability & Control</h2>
   <p>
-    This Privacy Policy is effective as of <b>2024-10-18</b>.<br>
+    You have full control over your data:
+    <br><br>
+    • View and clear your preferences anytime in <a class="link" href="/preferences">Preferences</a>
+    <br>
+    • Use private browsing mode without cookies
+    <br>
+    • Export your settings for backup
+  </p>
+  
+  <h2>7. 📝 Policy Updates</h2>
+  <p>
+    We may <b>update</b> this Privacy Policy periodically. Changes will be <b>prominently posted</b> 
+    on this page. We recommend checking for updates regularly.
+  </p>
+  
+  <h2>8. 📧 Contact Us</h2>
+  <p>
+    Questions about data protection? Contact us at <a href="https://vojk.au">vojk.au</a>
+  </p>
+  
+  <h2>9. 📅 Effective Date</h2>
+  <p>
+    This Privacy Policy is effective as of <b>2024-10-18</b>.
   </p>
 </div>
 {% endblock %}

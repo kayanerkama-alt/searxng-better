@@ -1,105 +1,235 @@
-# SearXNG
+# Atomic Search 🔮
 
-Builds a modified [SearXNG](https://github.com/searxng/searxng) container, a privacy respecting metasearch engine. Includes a suite of custom themes and bleeding edge patches that either don't fit upstream or aren't ready yet.
+<div align="center">
 
-🌐 Global : https://priv.au
+![Atomic Search Logo](out/img/atomic.svg)
 
----
+**The privacy-first, feature-rich metasearch engine with 40+ stunning themes**
 
-🇺🇸 Kansas City, United States : https://na.priv.au
+*[Formerly SearXNG Better]* • *[Live Demo](https://priv.au)*
 
-🇸🇬 Singapore, Singapore : https://as.priv.au
-
-🇩🇪 Frankfurt, Germany : https://eu.priv.au
-
-🇦🇺 Melbourne, Australia : https://au.priv.au
-
-Use the [Looking Glass](https://lg.as44354.net/) to find the closest one to you.
+</div>
 
 ---
 
-## Basic Usage
+## ✨ Features
 
-* ```docker run -d --restart always -p 127.0.0.1:8080:8080 --name searxng ghcr.io/privau/searxng```
+### 🔐 Privacy First
+- **Zero Tracking**: No cookies, no logs, no fingerprinting
+- **Decentralized Search**: Queries multiple engines simultaneously
+- **Encrypted Connections**: HTTPS everywhere
+- **No User Profiling**: Your searches stay private
 
-* Visit `http://127.0.0.1:8080` in your browser, stop the server with `Ctrl` + `C`.
+### 🎨 40+ Beautiful Themes
+Choose from an extensive collection of hand-crafted themes:
+- **Dark Mode**: night, mocha, macchiato, dracula, nord, kagi
+- **Light Mode**: latte, frappe, light, arctic, sky, mint
+- **Special**: cyberpunk, matrix, hacker, terminal, cosmic, sakura, pixel
+- **Nature**: forest, ocean, sunset
+- **Elegant**: violet, lavender, cobalt, crimson, rose, amber
+- And many more...
 
-## Theme Development
+### 🏆 Kagi-Inspired Quality
+- **Smart Ranking**: Quality-based result prioritization
+- **Clean UI**: Distraction-free search experience
+- **Instant Answers**: Direct answers without clicking
+- **Related Searches**: Discover relevant queries
 
-* Clone this repo: ```git clone https://github.com/privau/searxng.git```
+### ⚡ Performance
+- **Fast Results**: Parallel engine queries
+- **Lightweight**: Minimal resource usage
+- **Docker Ready**: One-command deployment
 
-* Make your changes to the theme within `src/less`
+---
 
-* Build the static files by running `update.sh`.
+## 🚀 Quick Start
 
-* You can build the docker container locally by running: ```docker build --pull -f ./Dockerfile -t searxng-dev:latest .```
+### Docker (Recommended)
+```bash
+docker run -d --restart always -p 127.0.0.1:8080:8080 --name atomic-search ghcr.io/privau/searxng
+```
 
-* Run the local container with: ```docker run -it --rm -p 8080:8080 searxng-dev:latest```
+Visit `http://127.0.0.1:8080` in your browser.
 
-* Alternatively, you can build the static files, build the docker image and run the docker container using `./development.sh`
+### Build from Source
 
-## Environment Variables (all optional: if not set -> using default settings)
+1. Clone the repository:
+```bash
+git clone https://github.com/privau/searxng.git
+cd searxng
+```
 
-* ```IMAGE_PROXY``` : enables the image proxy. (set this to `true`)
+2. Make changes to themes in `src/less`
 
-* ```REDIS_URL``` : sets the URL of valkey/redis server (for example `redis://redis:6379/0` or `unix:///usr/local/searxng-redis/run/redis.sock?db=0`)
+3. Build static files:
+```bash
+./update.sh
+```
 
-* ```LIMITER``` : limit bot traffic; this option also requires redis to be set up
+4. Build Docker image:
+```bash
+docker build --pull -f ./Dockerfile -t atomic-search:latest .
+```
 
-* ```PROXY``` : list of comma seperated proxies selected round robin for all engines (for example http://127.0.0.1:8080,http://proxy.example.net)
+5. Run:
+```bash
+docker run -it --rm -p 8080:8080 atomic-search:latest
+```
 
-* ```BASE_URL``` : sets the base url (for example: example.org would have `https://example.org/`)
+Or use the development script:
+```bash
+./development.sh
+```
 
-* ```GRANIAN_HOST``` : sets the address that granian will bind to. (default: `[::]`)
+---
 
-* ```GRANIAN_PORT``` : sets the port that granian will bind to (default: `8080`)
+## 🌍 Live Instances
 
-* ```NAME``` : sets the name of the instance, displayed as the url title - worth changing this as users can't add two instances named the same in Firefox (e.g. `PrivAU`)
+🌐 **Global**: https://priv.au
 
-* ```PRIVACYPOLICY``` : sets the location of privacy policy of the instance (for example `https://example.org/privacy-policy`)
+🇺🇸 **Kansas City, US**: https://na.priv.au
 
-* ```CONTACT``` : sets the location for users to contact the instance maintainer (for example `mailto:user@example.org`)
+🇸🇬 **Singapore**: https://as.priv.au
 
-* ```ISSUE_URL``` : set the location for users to report issues to (for example `https://github.com/example/searxng/issues` !Without a trailing /)
+🇩🇪 **Frankfurt, DE**: https://eu.priv.au
 
-* ```DONATE``` : enable the donation page and footer link. Set to `true` to enable (Default: `false`)
+🇦🇺 **Melbourne, AU**: https://au.priv.au
 
-* ```DONATION_URL``` : sets kofi or donation link displayed on the donation page (for example `https://ko-fi.com/privau`)
+Use the [Looking Glass](https://lg.as44354.net/) to find the closest instance.
 
-* ```MONERO_ADDRESS``` : sets the Monero address displayed on the donation page.
+---
 
-* ```GIT_URL``` : sets the location of the Git repository. (for example `https://github.com/privau/searxng`)
+## ⚙️ Environment Variables
 
-* ```GIT_BRANCH``` : sets the Git branch of the repository specified in `GIT_URL`. (for example `main`)
+All variables are optional. If not set, defaults are used.
 
-* ```SEARCH_ENGINE_ACCESS_DENIED``` : sets the suspension timeout in seconds if a search engine throws a SEARCH_ENGINE_ACCESS_DENIED exception (Default: `60`)
+### General
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `IMAGE_PROXY` | Enable image proxy | `false` |
+| `REDIS_URL` | Redis/Valkey URL | - |
+| `LIMITER` | Enable bot limiting | - |
+| `PROXY` | Comma-separated proxies | - |
+| `BASE_URL` | Instance base URL | - |
+| `NAME` | Instance name | `Atomic Search` |
 
-* ```SEARCH_ENGINE_CAPTCHA``` : sets the suspension timeout in seconds if a search engine throws a SEARCH_ENGINE_CAPTCHA exception (Default: `60`)
+### Privacy & Security
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `SECRET_KEY` | Session secret key | Auto-generated |
+| `PUBLIC_INSTANCE` | Enable public instance features | - |
 
-* ```PUBLIC_INSTANCE``` : enables features designed for public instances. Forces image_proxy and limiter set to enabled. Requires redis/valkey.
+### Search Engines (Default Enabled)
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `GOOGLE_DEFAULT` | Google search | `true` |
+| `BING_DEFAULT` | Bing search | `false` |
+| `BRAVE_DEFAULT` | Brave search | `false` |
+| `DUCKDUCKGO_DEFAULT` | DuckDuckGo | `false` |
+| `WIKIPEDIA_DEFAULT` | Wikipedia | `false` |
+| `WIKIDATA_DEFAULT` | Wikidata | `false` |
 
-* ```SECRET_KEY``` : manually set the secret key for the instance. A random key will be generated on startup if not set.
+### Localization
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `SEARCH_DEFAULT_LANG` | Default language | `auto` |
 
-* ```FOOTER_MESSAGE``` : sets the footer message of the instance (Default: empty)
+### Branding & Contact
+| Variable | Description |
+|----------|-------------|
+| `PRIVACYPOLICY` | Privacy policy URL |
+| `CONTACT` | Contact URL |
+| `ISSUE_URL` | Issue tracker URL |
+| `FOOTER_MESSAGE` | Custom footer text |
 
-* ```AUTHORIZED_API``` : set the password for the Authorized API (Default: empty)
+### Donations
+| Variable | Description |
+|----------|-------------|
+| `DONATE` | Enable donation page |
+| `DONATION_URL` | Donation link (Ko-fi, etc.) |
+| `MONERO_ADDRESS` | XMR address |
 
-* ```OPENMETRICS``` : set the password for the Openmetrics endpoint (Default: empty)
+### API
+| Variable | Description |
+|----------|-------------|
+| `AUTHORIZED_API` | Authorized API password |
+| `OPENMETRICS` | OpenMetrics password |
 
-* ```GOOGLE_DEFAULT``` : enable the Google search engine by default (Default: `true`)
+---
 
-* ```BING_DEFAULT``` : enable the Bing search engine by default (Default: `false`)
+## 🎨 Theme Development
 
-* ```BRAVE_DEFAULT``` : enable the Brave search engine by default (Default: `false`)
+Themes are defined in `src/less/themes/`. Each theme is a `.less` file that sets CSS variables.
 
-* ```DUCKDUCKGO_DEFAULT``` : enable the DuckDuckGo search engine by default (Default: `false`)
+### Creating a New Theme
 
-* ```WIKIPEDIA_DEFAULT``` : enable the Wikipedia engine by default (Default: `false`)
+1. Create `src/less/themes/mytheme.less`:
 
-* ```WIKIDATA_DEFAULT``` : enable the Wikidata engine by default (Default: `false`)
+```less
+.mynewtheme-themes() {
+  --color-base-font: #ffffff;
+  --color-base-background: #1a1a1a;
+  --color-btn-background: #6366f1;
+  // ... all other variables
+}
 
-* ```DDG_DEFINITIONS_DEFAULT``` : enable the DuckDuckGo Definitions engine by default (Default: `false`)
+:root.theme-mynewtheme {
+  .mynewtheme-themes();
+}
+```
 
-* ```SEARCH_DEFAULT_LANG``` : sets the default search language (for example `en`, Default: `auto`)
+2. Add to `definitions.less`:
+```less
+@import "themes/mynewtheme.less";
+```
 
-* ```MARGINALIA_API``` : sets the API key for the Marginalia search engine and enables it (Default: disabled)
+3. Update `Dockerfile` theme lists
+
+4. Rebuild:
+```bash
+./update.sh
+```
+
+---
+
+## 🔒 Privacy Features
+
+### Built-in Protections
+- ✅ No tracking cookies
+- ✅ No search logging  
+- ✅ No referrer tracking
+- ✅ HTTPS-only connections
+- ✅ Optional image proxy
+- ✅ Bot limiting (with Redis)
+
+### Privacy Policy
+Each instance can have a custom privacy policy. Visit `/privacy` on your instance.
+
+---
+
+## 📦 Tech Stack
+
+- **Backend**: [SearXNG](https://github.com/searxng/searxng)
+- **Styling**: LESS/CSS
+- **Container**: Docker
+- **Web Server**: Granian
+
+---
+
+## 🤝 Contributing
+
+Contributions welcome! Please read the existing code style and submit PRs.
+
+---
+
+## 📄 License
+
+AGPL-3.0-or-later
+
+---
+
+<div align="center">
+
+**Made with ❤️ for privacy-conscious users**
+
+</div>
