@@ -18,8 +18,12 @@ RUN git clone --depth 1 https://github.com/searxng/searxng.git . && \
 # Install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy our custom source files (templates, static, settings)
-COPY ./src/ ./src/
+# Copy our custom source files INTO SearXNG structure
+COPY ./src/templates/ ./searx/templates/
+COPY ./src/static/ ./searx/static/
+COPY ./src/settings.yml ./searx/settings.yml
+COPY ./src/js/ ./searx/js/
+COPY ./src/less/ ./searx/less/
 
 # Copy compiled themes/CSS to SearXNG static folder
 COPY ./out/ ./searx/static/themes/simple/
