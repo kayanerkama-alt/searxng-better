@@ -6,7 +6,7 @@
 
 **The privacy-first, feature-rich metasearch engine with 40+ stunning themes**
 
-*[Formerly SearXNG Better]* • *[Live Demo](https://priv.au)*
+*Based on SearXNG* • *Rebranded by UCXP Project* • *[Live Demo](https://priv.au)*
 
 </div>
 
@@ -16,16 +16,30 @@
 
 ### 🔐 Privacy First
 - **Zero Tracking**: No cookies, no logs, no fingerprinting
+- **Anonymous Proxy Routing**: Hide your identity from search engines
 - **Decentralized Search**: Queries multiple engines simultaneously
 - **Encrypted Connections**: HTTPS everywhere
 - **No User Profiling**: Your searches stay private
 
 ### 🎨 40+ Beautiful Themes
 Choose from an extensive collection of hand-crafted themes:
-- **Dark Mode**: night, mocha, macchiato, dracula, nord, kagi, cyberpunk, matrix, hacker, cosmic, slate
+- **Dark Mode**: night, mocha, macchiato, dracula, nord, kagi, cyberpunk, matrix, hacker, cosmic, slate, terminal
 - **Light Mode**: latte, frappe, light, arctic, sky, mint, sakura, lavender, rose, amber
-- **Special**: terminal, solarized, pixel, ocean, forest, sunset, crimson, cobalt, violet
-- And many more...
+- **Special**: ocean, forest, sunset, pixel, solarized, crimson, cobalt, violet
+- **Catppuccin**: latte, frappe, macchiato, mocha
+- **Kagi-Inspired**: kagi, brave
+
+### 🏆 Kagi-Style UI
+- **Smart Ranking**: Quality-based result prioritization
+- **Domain Control**: Pin, boost, or block domains
+- **Trust Indicators**: Visual badges for verified sources
+- **Instant Answers**: Calculator, conversions, weather
+
+### 🔒 Security Features
+- **Scam Detection**: Built-in URL safety checking
+- **Phishing Protection**: Warning indicators on suspicious sites
+- **HTTPS Enforcement**: Secure connections only
+- **Bot Limiting**: Optional Redis-based rate limiting
 
 ### ☁️ Cloud-Ready
 - **Railway**: One-click deployment with `railway.toml`
@@ -93,8 +107,6 @@ docker run -p 8080:8080 atomic-search:latest
 3. Connect your GitHub repo
 4. Deploy automatically!
 
-Or use the `railway.toml` for configuration:
-
 ```bash
 # Install Railway CLI
 npm i -g @railway/cli
@@ -125,17 +137,60 @@ Or manual setup:
 - **Start Command**: `bash /usr/local/bin/run.sh`
 - **Health Check Path**: `/healthz`
 
-### Railway + Redis (Rate Limiting)
+---
 
-Enable bot protection with Redis:
+## 🌤️ New Features
 
+### Instant Answers
+Atomic Search provides instant answers to common queries:
+- **Calculator**: Type `calc 2+2` or `=5*5`
+- **Conversions**: Type `100 km to miles`
+- **Weather**: Type `weather in London`
+- **Time**: Type `time in Tokyo`
+
+### Scam Detection
+Built-in URL safety checking warns you about:
+- Suspicious domains
+- Phishing attempts
+- Unsecured connections (HTTP)
+- Known malicious sites
+
+### Domain Ranking (Kagi-Style)
+Control your search results:
+- Pin favorite domains to the top
+- Block unwanted domains entirely
+- Boost trusted sources
+- View trust scores for each result
+
+---
+
+## 🔧 Advanced Configuration
+
+### Proxy Routing
+Route searches through proxy servers for extra privacy:
 ```bash
-# Using Docker Compose
-REDIS_URL=redis://localhost:6379 docker-compose up -d
-
-# Environment variable
-REDIS_URL=redis://your-redis-url
+docker run -e PROXY="socks5://proxy1:1080,socks5://proxy2:1080" ...
 ```
+
+### Search Engine Selection
+Default engines enabled:
+- Google (default)
+- Brave Search
+- Wikipedia
+- Wikidata
+- Currency conversion
+
+Disable unused engines with environment variables:
+- `GOOGLE_DEFAULT=false`
+- `BRAVE_DEFAULT=true`
+- etc.
+
+### Custom Branding
+Override branding with environment variables:
+- `NAME`: Instance name
+- `FOOTER_MESSAGE`: Custom footer text
+- `ISSUE_URL`: Issue tracker URL
+- `CONTACT`: Contact page URL
 
 ---
 
@@ -155,144 +210,33 @@ Use the [Looking Glass](https://lg.as44354.net/) to find the closest instance.
 
 ---
 
-## ⚙️ Environment Variables
-
-All variables are optional. If not set, defaults are used.
-
-### General
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `IMAGE_PROXY` | Enable image proxy | `false` |
-| `REDIS_URL` | Redis/Valkey URL | - |
-| `LIMITER` | Enable bot limiting | - |
-| `PROXY` | Comma-separated proxies | - |
-| `BASE_URL` | Instance base URL | - |
-| `NAME` | Instance name | `Atomic Search` |
-| `GRANIAN_HOST` | Bind address | `0.0.0.0` |
-| `GRANIAN_PORT` | Bind port | `8080` |
-
-### Privacy & Security
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `SECRET_KEY` | Session secret key | Auto-generated |
-| `PUBLIC_INSTANCE` | Enable public instance features | - |
-
-### Search Engines (Default Enabled)
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `GOOGLE_DEFAULT` | Google search | `true` |
-| `BING_DEFAULT` | Bing search | `false` |
-| `BRAVE_DEFAULT` | Brave search | `false` |
-| `DUCKDUCKGO_DEFAULT` | DuckDuckGo | `false` |
-| `WIKIPEDIA_DEFAULT` | Wikipedia | `false` |
-| `WIKIDATA_DEFAULT` | Wikidata | `false` |
-
-### Localization
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `SEARCH_DEFAULT_LANG` | Default language | `auto` |
-
-### Branding & Contact
-| Variable | Description |
-|----------|-------------|
-| `PRIVACYPOLICY` | Privacy policy URL |
-| `CONTACT` | Contact URL |
-| `ISSUE_URL` | Issue tracker URL |
-| `FOOTER_MESSAGE` | Custom footer text |
-
-### Donations
-| Variable | Description |
-|----------|-------------|
-| `DONATE` | Enable donation page |
-| `DONATION_URL` | Donation link (Ko-fi, etc.) |
-| `MONERO_ADDRESS` | XMR address |
-
-### API
-| Variable | Description |
-|----------|-------------|
-| `AUTHORIZED_API` | Authorized API password |
-| `OPENMETRICS` | OpenMetrics password |
-
----
-
-## 🎨 Theme Development
-
-Themes are defined in `src/less/themes/`. Each theme is a `.less` file that sets CSS variables.
-
-### Creating a New Theme
-
-1. Create `src/less/themes/mytheme.less`:
-
-```less
-.mynewtheme-themes() {
-  --color-base-font: #ffffff;
-  --color-base-background: #1a1a1a;
-  --color-btn-background: #6366f1;
-  // ... all other variables
-}
-
-:root.theme-mynewtheme {
-  .mynewtheme-themes();
-}
-```
-
-2. Add to `definitions.less`:
-```less
-@import "themes/mynewtheme.less";
-```
-
-3. Update `Dockerfile` theme lists
-
-4. Rebuild:
-```bash
-./update.sh
-```
-
----
-
-## 🔒 Privacy Features
-
-### Built-in Protections
-- ✅ No tracking cookies
-- ✅ No search logging  
-- ✅ No referrer tracking
-- ✅ HTTPS-only connections
-- ✅ Optional image proxy
-- ✅ Bot limiting (with Redis)
-
-### Privacy Policy
-Each instance can have a custom privacy policy. Visit `/privacy` on your instance.
-
----
-
-## 🏗️ Project Structure
+## 📁 Project Structure
 
 ```
 atomic-search/
 ├── src/
-│   ├── less/           # Theme LESS files
-│   │   └── themes/     # Individual themes
-│   ├── privacy-policy/
-│   ├── captcha/
-│   ├── auth/
-│   └── search/
-├── out/                # Compiled static files
-├── Dockerfile          # Standard build
-├── Dockerfile.optimized # Production optimized
-├── docker-compose.yml  # Local development
-├── railway.toml        # Railway deployment
-├── render.yaml         # Render deployment
-└── .env.example       # Environment template
+│   ├── branding/          # UCXP branding module
+│   ├── less/             # Theme LESS files
+│   │   └── themes/      # Individual themes (40+)
+│   ├── search/           # Search enhancements
+│   │   ├── domain_ranking.py    # Kagi-style ranking
+│   │   ├── instant_answers.py   # Instant answers
+│   │   ├── privacy_proxy.py      # Proxy routing
+│   │   ├── result_enhancer.py    # Result metadata
+│   │   ├── scam_detection.py     # Scam protection
+│   │   └── weather.py           # Weather search
+│   ├── auth/             # API authentication
+│   ├── captcha/          # Captcha support
+│   ├── donation/          # Donation page
+│   └── privacy-policy/   # Privacy policy
+├── out/                  # Compiled static files
+├── Dockerfile            # Production build
+├── Dockerfile.optimized   # Optimized build
+├── docker-compose.yml    # Local development
+├── railway.toml          # Railway deployment
+├── render.yaml           # Render deployment
+└── .env.example          # Environment template
 ```
-
----
-
-## 📦 Tech Stack
-
-- **Backend**: [SearXNG](https://github.com/searxng/searxng)
-- **Styling**: LESS/CSS
-- **Container**: Docker
-- **Web Server**: Granian (Rust-based)
 
 ---
 
@@ -308,8 +252,20 @@ AGPL-3.0-or-later
 
 ---
 
+## 🙏 Credits
+
+- **SearXNG**: Core search engine functionality
+- **UCXP Project**: Branding and enhancements
+- **Catppuccin**: Theme inspiration
+- **Kagi**: UI inspiration
+- **Community**: Themes and contributions
+
+---
+
 <div align="center">
 
 **Made with ❤️ for privacy-conscious users**
+
+**Based on SearXNG | Rebranded by UCXP Project**
 
 </div>
