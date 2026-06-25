@@ -10,7 +10,7 @@
   <meta name="robots" content="noarchive">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% block title %}{% endblock %}{{ instance_name }}</title>
-  <script type="module" src="{{ url_for('static', filename='sxng-core.min.js') }}" client_settings="{{ client_settings }}"></script>
+  <script type="module" src="{{ url_for('static', filename='themes/simple/sxng-core.min.js') }}" client_settings="{{ client_settings }}"></script>
   {% block meta %}{% endblock %}
   {% if rtl %}
   <link rel="stylesheet" href="{{ url_for('static', filename='sxng-rtl.min.css') }}" type="text/css" media="screen">
@@ -64,7 +64,6 @@
     {% endblock %}
     {% block content %}
     {% endblock %}
-  </main>
   <footer>
     <p>
     {{ _('Powered by') }} <a href="{{ url_for('info', pagename='about') }}">Atomic Search</a> - {{ searxng_version }} — {{ _('a privacy-respecting, open metasearch engine') }}<br>
