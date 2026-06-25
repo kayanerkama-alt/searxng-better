@@ -24,9 +24,14 @@ COPY ./src/static/ ./searx/static/
 COPY ./src/settings.yml ./searx/settings.yml
 COPY ./src/js/ ./searx/js/
 COPY ./src/less/ ./searx/less/
+COPY ./src/favicons.toml ./searx/favicons.toml
 
-# Copy compiled themes/CSS to SearXNG static folder
-COPY ./out/ ./searx/static/themes/simple/
+# Copy compiled CSS/JS to SearXNG static themes folder
+COPY ./out/img/ ./searx/static/themes/simple/img/
+COPY ./out/chunk/ ./searx/static/themes/simple/chunk/
+COPY ./out/*.css ./searx/static/themes/simple/
+COPY ./out/*.js ./searx/static/themes/simple/
+COPY ./out/manifest.json ./searx/static/themes/simple/
 
 # Copy search plugins (individual files to avoid glob issues)
 RUN if [ -d ./src/search ]; then \
