@@ -33,6 +33,9 @@ COPY ./src/static/img/ ./searx/static/themes/simple/img/
 COPY ./out/img/ ./searx/static/themes/simple/img/
 COPY ./out/chunk/ ./searx/static/themes/simple/chunk/
 
+# Copy atomic-logo.svg to root static for easy access
+RUN cp ./searx/static/themes/simple/img/atomic-logo.svg ./searx/static/atomic-logo.svg 2>/dev/null || true
+
 # Copy search plugins (individual files to avoid glob issues)
 RUN if [ -d ./src/search ]; then \
       for f in ./src/search/*.py; do \
