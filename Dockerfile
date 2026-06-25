@@ -28,8 +28,12 @@ COPY ./src/less/ ./searx/less/
 # Copy compiled themes/CSS to SearXNG static folder
 COPY ./out/ ./searx/static/themes/simple/
 
-# Copy search plugins if they exist
-COPY ./src/search/*.py ./searx/search/ 2>/dev/null || true
+# Copy search plugins (individual files to avoid glob issues)
+RUN if [ -d ./src/search ]; then \
+      for f in ./src/search/*.py; do \
+        [ -f "$f" ] && cp "$f" ./searx/search/; \
+      done \
+    fi || true
 
 # Branding replacement in settings
 RUN sed -i 's/"SearXNG"/"Atomic Search"/g' ./searx/settings.yml && \
